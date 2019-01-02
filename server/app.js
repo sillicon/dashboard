@@ -5,7 +5,6 @@ var favicon = require("serve-favicon");
 var logger = require("morgan");
 var cookieParser = require("cookie-parser");
 var bodyParser = require("body-parser");
-var MongoClient = require("mongodb").MongoClient;
 
 var Strategy = require("./lib").Strategy;
 var uploadReport = require("./routes/uploadReport");
@@ -13,7 +12,7 @@ var queryReports = require("./routes/queryReports");
 var getTestName = require("./routes/getTestName");
 var githubLogin = require("./routes/githubLogin");
 
-var deployPath = process.env.deployPath || "";
+const deployPath = process.env.deployPath || "";
 passport.use(new Strategy({
         clientID: "4d3e985fc1a04fdf2674",
         clientSecret: "022ba1b17ff29735a2afe03e1f8530a50affbeb0",
@@ -30,7 +29,7 @@ passport.deserializeUser(function (obj, cb) {
     cb(null, obj);
 });
 
-var app = express();
+const app = express();
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
