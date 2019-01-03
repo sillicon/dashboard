@@ -1,0 +1,159 @@
+.siteHeader {
+    width: 100%;
+}
+
+.siteHeaderCenter {
+    overflow: hidden;
+    width: 80%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.logo {
+    display: block;
+    height: 80px;
+    width: 179px;
+    float: left;
+}
+
+.siteName {
+    float: left;
+    max-width: 1200px;
+    font-size: 1.9rem;
+    line-height: 80px;
+    font-weight: bold;
+}
+
+.loginGithub {
+    float: right;
+    width: 80px;
+    height: 76px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.loginGithub:hover {
+    border-bottom: 4px solid transparent;
+    border-bottom-color: #0079c1;
+}
+
+.GitLogo {
+    margin-top: 10px;
+    width: 45px;
+    height: 45px;
+}
+
+.loginLabel {
+    width: auto;
+    font-size: 0.8rem;
+    padding: 0px 0px 4px 0px;
+}
+
+@media only screen and (max-width: 900px) and (min-width: 750px),
+(max-device-width: 900px) {
+    .loginLabel {
+        display: none;
+    }
+    .GitLogo {
+        margin-top: 20px;
+    }
+    .siteName {
+        font-size: 1.4rem;
+    }
+}
+
+@media only screen and (max-width: 750px) and (min-width: 700px),
+(max-device-width: 750px) {
+    .loginLabel {
+        display: none;
+    }
+    .GitLogo {
+        margin-top: 20px;
+    }
+    .siteName {
+        font-size: 1.3rem;
+    }
+}
+
+@media only screen and (max-width: 720px) and (min-width: 700px),
+(max-device-width: 750px) {
+    .GitLogo {
+        margin-top: 20px !important;
+    }
+}
+
+@media only screen and (max-width: 720px) and (min-width: 630px),
+(max-device-width: 700px) {
+    .loginGithub {
+        width: 40px;
+    }
+    .GitLogo {
+        margin-top: 30px;
+        width: 20px;
+        height: 20px;
+    }
+    .logo {
+        height: 60px;
+        width: 134.25px;
+    }
+    .siteName {
+        line-height: 60px;
+    }
+    .loginGithub {
+        height: 56px;
+    }
+}
+
+@media only screen and (max-width: 700px) and (min-width: 630px),
+(max-device-width: 700px) {
+    .loginLabel {
+        display: none;
+    }
+    .GitLogo {
+        margin-top: 20px;
+    }
+    .siteName {
+        font-size: 1.3rem;
+    }
+}
+
+@media only screen and (max-width: 630px),
+(max-device-width: 630px) {
+    .siteHeaderCenter {
+        text-align: center;
+    }
+    .logo {
+        display: inline-block;
+        float: none;
+        height: 40px;
+        width: 90px;
+    }
+    .siteName {
+        position: relative;
+        float: none;
+        top: 0;
+        left: 0;
+        font-size: 1.3rem;
+        margin: auto;
+        line-height: normal;
+    }
+    .loginGithub {
+        margin: auto;
+        float: none;
+        width: 20px;
+        height: auto;
+    }
+    .loginLabel {
+        display: none;
+    }
+    .GitLogo {
+        margin: auto;
+        width: 20px;
+        height: 20px;
+    }
+    .loginGithub:hover {
+        border-bottom: none;
+        border-bottom-color: none;
+        background-color: #0079c1;
+    }
+}

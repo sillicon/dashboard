@@ -14,9 +14,9 @@ var githubLogin = require("./routes/githubLogin");
 
 const deployPath = process.env.deployPath || "";
 passport.use(new Strategy({
-        clientID: "4d3e985fc1a04fdf2674",
-        clientSecret: "022ba1b17ff29735a2afe03e1f8530a50affbeb0",
-        callbackURL: "https://nodereport.herokuapp.com/login/github/return"
+        clientID: "03502eb5c9d56dee6f61",
+        clientSecret: "c75af2207e1d4d9bc953bf5d7d79c10d10eb0ed2",
+        callbackURL: "http://localhost:3001/login/github/return"
     },
     function (accessToken, refreshToken, profile, cb) {
         profile.accessToken = accessToken;
@@ -57,7 +57,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //define static public path
-app.use(deployPath, express.static(path.join(__dirname, "public")));
+app.use(deployPath, express.static(path.join(__dirname + "/../client/build")));
 
 //use middlewares
 app.use(deployPath, uploadReport);
@@ -66,7 +66,7 @@ app.use(deployPath, getTestName);
 app.use(deployPath, githubLogin);
 
 app.get(deployPath, function (req, res) {
-    res.sendFile(path.join(__dirname, "public", "home.html"));
+    res.sendFile(path.join(__dirname + "/../client/build", "index.html"));
 });
 app.get(deployPath + "/ReadReport", function (req, res) {
     res.sendFile(path.join(__dirname, "public", "ReadReport.html"));
