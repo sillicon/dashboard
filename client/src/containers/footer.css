@@ -1,0 +1,24 @@
+.footer {
+    margin: auto;
+    padding: 0;
+    text-align: center;
+    background-color: rgba(248, 248, 248, 1);
+    color: #005e95;
+}
+
+.footerContainer {
+    width: 80%;
+    max-width: 1200px;
+    margin: auto;
+    text-align: center;
+}
+
+.footerContainer>div {
+    position: relative;
+    margin: 30px auto;
+    display: inline-block;
+}
+
+.footerContainer a {
+    color: #005e95;
+}

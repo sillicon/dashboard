@@ -3,12 +3,17 @@ import React, {
 } from "react";
 import classes from "./App.css";
 import Header from "./header";
+import Footer from "./footer";
+import Content from "./content";
 import axios from "axios";
 
 class App extends Component {
 
 	state = {
-		user: null
+		user: null,
+		envir: "Envir1",
+		curDate: new Date(),
+		reports: null
 	}
 
 	componentWillMount() {
@@ -35,13 +40,37 @@ class App extends Component {
 		}
 	}
 
+	queryChange = () => {
+		axios.get("./getLatestReports" + this.formatParams({
+			envir: this.state.envir,
+			testDate: this.state.curDate
+		})).then(res => {
+			this.setState({reports: res.data});
+		});
+	}
+
+	formatParams = (params) => {
+        return "?" + Object
+            .keys(params)
+            .map(function (key) {
+                return key + "=" + params[key]
+            })
+            .join("&")
+    }
+
     render() {
         return (
 			<div className = {classes.App} >
 				<Header
 					userInfo={this.state.user}
 					gitLogin={this.githubLogin}
-					checkProfile={this.checkProfile}></Header>
+					checkProfile={this.checkProfile}>
+				</Header>
+				<Content
+					envir={this.state.envir}
+					curDate={this.state.curDate}
+					queryChange={this.queryChange}></Content>
+				<Footer></Footer>
 			</div>
         );
     }
