@@ -6,7 +6,7 @@ router.get("/queryReports", function(req, res) { // new query with MongoDB
     if (!queryValidator(req.query)) {
         res.status(400).send("Missing query parameter!");
     } else {
-        var db = req.app.get("dbConnection");
+        var db = req.app.get("dbConnection").db("qareport");
         // Get the documents collection
         var collection = db.collection("reportResult");
         var queryObj = {
@@ -127,7 +127,7 @@ router.get("/queryReports", function(req, res) { // new query with MongoDB
 });
 
 router.get("/getLatestReports", function(req, res) {
-    var db = req.app.get("dbConnection");
+    var db = req.app.get("dbConnection").db("qareport");
     // Get the documents collection
     var collection = db.collection("reportResult");
     var queryObj = {
@@ -171,7 +171,7 @@ router.get("/getLatestReports", function(req, res) {
 });
 
 router.get("/getIDRef", function(req, res) {
-    var db = req.app.get("dbConnection");
+    var db = req.app.get("dbConnection").db("qareport");
     // Get the documents collection
     var collection = db.collection("reportCategory");
     getIDRef(collection, function(err, result) {

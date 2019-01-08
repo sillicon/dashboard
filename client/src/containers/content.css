@@ -1,5 +1,5 @@
 .content {
-    min-height: 300px;
+    min-height: calc(100% - 200px);
     min-width: 320px;
     margin: auto;
     padding: 0;

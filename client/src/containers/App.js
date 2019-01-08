@@ -6,6 +6,7 @@ import Header from "./header";
 import Footer from "./footer";
 import Content from "./content";
 import axios from "axios";
+import * as moment from "moment";
 
 class App extends Component {
 
@@ -40,10 +41,12 @@ class App extends Component {
 		}
 	}
 
-	queryChange = () => {
+	queryChange = (selectDay) => {
+		console.log(selectDay);
+		this.setState({curDate: selectDay});
 		axios.get("./getLatestReports" + this.formatParams({
 			envir: this.state.envir,
-			testDate: this.state.curDate
+			testDate: moment(this.state.curDate).format("MM/DD/YYYY")
 		})).then(res => {
 			this.setState({reports: res.data});
 		});
