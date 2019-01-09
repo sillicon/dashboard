@@ -9,7 +9,7 @@ router.post("/uploadReport", function (req, res) {
     if (!req.body.hasOwnProperty("reportEnvi") || !req.body.hasOwnProperty("testID") || !req.body.hasOwnProperty("reportDate") || !req.body.hasOwnProperty("reportHTML") || !req.body.hasOwnProperty("reportResult")) {
         res.status(400).send("Bad Request. Missing important request parameter.");
     } else {
-        var db = req.app.get("dbConnection");
+        var db = req.app.get("dbConnection").db("qareport");
         var collection = db.collection("reportResult");
         var inputHTML = req.body.reportHTML;
         var dateWithTime = getNowTime(req.body.reportDate);
@@ -89,7 +89,7 @@ router.post("/uploadReport", function (req, res) {
 });
 
 router.post("/publishComment", function (req, res) {
-    var db = req.app.get("dbConnection");
+    var db = req.app.get("dbConnection").db("qareport");
     var dataCol = db.collection("reportResult");
     dataCol.find({
         "_id": ObjectID(req.body._id)
@@ -131,7 +131,7 @@ router.post("/publishComment", function (req, res) {
 });
 
 router.get("/deleteResult", function(req, res) {
-    let db = req.app.get("dbConnection");
+    let db = req.app.get("dbConnection").db("qareport");
     let dataCol = db.collection("reportResult");
     dataCol.find({
         "_id": ObjectID(req.query._id)
@@ -160,7 +160,7 @@ router.get("/deleteResult", function(req, res) {
 });
 
 router.get("/alterResult", function(req, res) {
-    let db = req.app.get("dbConnection");
+    let db = req.app.get("dbConnection").db("qareport");
     let dataCol = db.collection("reportResult");
     dataCol.find({
         "_id": ObjectID(req.query._id)

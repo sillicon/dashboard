@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 router.get("/getTestName", function (req, res) {
-    var db = req.app.get("dbConnection");
+    var db = req.app.get("dbConnection").db("qareport");
     // Get the documents collection
     var collection = db.collection("reportCategory");
     // if don't want "_id" attribute: project({ _id: 0, 'child._id': 0, 'child.child._id': 0})

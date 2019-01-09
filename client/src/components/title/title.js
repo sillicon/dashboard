@@ -6,6 +6,7 @@ import {
 import DayPicker from "react-day-picker";
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import classes from "./title.css";
+import Navi from "../navigation/navi";
 
 const title = (props) => {
     let inlineStyle1 = {
@@ -61,6 +62,8 @@ const title = (props) => {
                     }}
                     onDayChange={props.queryChange}></DayPickerInput>
             </div>
+            <Navi switchEnvir={props.switchEnvir}
+                envir={props.envir}></Navi>
         </div>
         // <DayPicker classNames={dayPickerClassNames} />
     )

@@ -1,0 +1,245 @@
+.cardHolder {
+    border-left: 1px solid #ddd;
+    margin: .5rem 0 .5rem 2rem;
+    padding: 0;
+}
+
+.ordinaryCard {
+    position: relative;
+    margin-bottom: 7px;
+    text-align: left;
+}
+
+.ordinaryCard:first-child:before {
+    content: "";
+    display: block;
+    position: absolute;
+    background-color: #ffffff;
+    top: 0;
+    left: -1px;
+    width: 2px;
+    height: 30px;
+}
+
+.ordinaryCard:last-child:before {
+    content: "";
+    display: block;
+    position: absolute;
+    background-color: #ffffff;
+    top: 40px;
+    left: -1px;
+    width: 2px;
+    height: 100%;
+}
+
+.ordinaryCard:only-child:before {
+    content: "";
+    display: block;
+    position: absolute;
+    background-color: #ffffff;
+    top: 0;
+    left: -1px;
+    width: 2px;
+    height: 100%;
+}
+
+.ordinaryCard button {
+    position: absolute;
+    left: -16px;
+    top: 9px;
+    background-color: white;
+    border-radius: 16px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding: 3px;
+    outline: none;
+    margin: 7px 10px 10px 0;
+    width: 32px;
+    height: 32px;
+}
+
+.haschild {
+    cursor: pointer;
+}
+
+.haschild:hover {
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1), 0 0 16px 0 rgba(19, 19, 19, 0.05);
+}
+
+.nochild {
+    float: left;
+    border: 5px solid rgb(227, 227, 227);
+}
+
+button svg {
+    fill: #828282;
+    width: 16px;
+    height: 16px;
+}
+
+.nameCard {
+    background-color: white;
+    border-radius: 3px;
+    border: 1px solid #a1a1a1;
+    position: relative;
+    display: block;
+    margin: 0 1.5rem;
+    padding-top: 9px;
+    overflow: hidden;
+}
+
+.nameCard .fieldTitle {
+    /* margin: 0 20px 0 20px; */
+    padding: 0 5px 0 30px;
+}
+
+.ordinaryCard .nameCard .fieldTitle :not(.github).icon:hover {
+    border-bottom: 2px solid transparent;
+    border-bottom-color: #0079c1;
+}
+
+.ordinaryCard .nameCard.login a {
+    font-size: 16px;
+    display: inline-block;
+    margin: 11px auto 21px 30px;
+}
+
+.ordinaryCard .nameCard.issueTitle {
+    overflow: hidden;
+    padding-left: 20px;
+}
+
+.ordinaryCard .nameCard a.issueName {
+    color: rgb(36, 41, 46);
+    font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.25;
+    text-decoration: none;
+}
+
+.ordinaryCard .nameCard a.issueName:hover {
+    color: rgb(3, 102, 214);
+}
+
+.ordinaryCard .nameCard .commentExpand {
+    background-color: #9fd7ff;
+}
+
+.ordinaryCard .nameCard .coNum {
+    float: right;
+    font-size: 15px;
+    margin-top: 2px;
+    margin-right: 5px;
+    border-radius: 15px;
+    background-color: #fda522;
+    color: white;
+    min-width: 19px;
+    text-align: center;
+}
+
+.ordinaryCard div.label {
+    display: inline-block;
+    padding: 3px 4px;
+    margin: 0 5px 10px 0;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1;
+    border-radius: 2px;
+    box-shadow: inset 0 -1px 0 rgba(27, 31, 35, 0.12);
+    pointer-events: none;
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+.ordinaryCard div.info {
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    color: #586069;
+    font-size: 12px;
+    line-height: 1.25;
+    word-wrap: break-word;
+    display: inline-block;
+    margin: 0 0 10px 0;
+}
+
+.ordinaryCard .commentsHolder {
+    margin: 10px 30px 10px 30px;
+    overflow: hidden;
+}
+
+.ordinaryCard .commentCard {
+    margin: 10px 0px 10px 30px;
+    border-bottom: 1px solid transparent;
+    border-bottom-color: #9b9b9b;
+}
+
+.ordinaryCard .commentCard.nocomment {
+    font-size: 1rem;
+    color: rgb(131, 131, 131);
+    padding-bottom: 15px;
+}
+
+.ordinaryCard .commentCard .coAvatar {
+    float: left;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    font-size: 30px;
+    line-height: 40px;
+    font-weight: bold;
+    color: white;
+    pointer-events: none;
+}
+
+.ordinaryCard .commentCard .coName {
+    margin: auto 20px 20px 20px;
+    color: #005e95;
+}
+
+.ordinaryCard .commentCard .coTimelabel {
+    margin: auto;
+    font-size: 12px;
+    color: #838383;
+}
+
+.ordinaryCard .commentCard .coText {
+    margin: auto 20px 20px 60px;
+}
+
+.ordinaryCard .cardButton {
+    background-color: #0079c1;
+    border: 1px solid #0079c1;
+    color: #FFF;
+    padding: 3px 15px;
+    float: right;
+    cursor: pointer;
+}
+
+.ordinaryCard .buttonDisabled {
+    opacity: 0.35;
+    pointer-events: none;
+}
+
+.ordinaryCard .cardButton:hover {
+    background-color: #005e95;
+}
+
+.ordinaryCard .avatar {
+    float: left;
+    margin: auto 20px 10px 30px;
+    width: 40px;
+    height: 40px;
+}
+
+.ordinaryCard textarea {
+    font-family: AvenirNextLTPro-Regular;
+    width: calc(100% - 100px);
+    min-width: calc(100% - 100px);
+    max-width: calc(100% - 100px);
+    float: left;
+    height: 60px;
+    min-height: 40px;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    padding: 1px;
+}

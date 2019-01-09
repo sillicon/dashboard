@@ -1,0 +1,77 @@
+.buttonContainer {
+    overflow: auto;
+    width: 80%;
+    max-width: 1200px;
+    margin: 5px auto 5px auto;
+    text-align: center;
+    font-size: 1rem;
+}
+
+.buttonGroup1 {
+    float: left;
+    margin: 5px 40px 5px auto;
+}
+
+.buttonGroup2 {
+    float: left;
+    margin: 5px auto 5px auto;
+}
+
+.buttonGroup3 {
+    float: right;
+    margin: 5px auto 5px auto;
+}
+
+.buttonGroup1 div,
+.buttonGroup2 div,
+.buttonGroup3 div {
+    background-color: rgb(255, 255, 255);
+    border: 1px solid #11a1f5;
+    color: rgb(0, 0, 0);
+    padding: 5px 10px 8px 10px;
+    cursor: pointer;
+}
+
+.buttonGroup1 div:hover,
+.buttonGroup2 div:hover,
+.buttonGroup3 div:hover {
+    background-color: #ace1ff;
+}
+
+.buttonGroup1 div {
+    float: left;
+    border-radius: 5px;
+}
+
+.buttonGroup2 div:nth-child(1) {
+    float: left;
+    border-right: none;
+    border-radius: 5px 0 0 5px;
+}
+
+.buttonGroup2 div:nth-child(2) {
+    float: left;
+    border-radius: 0 5px 5px 0;
+}
+
+.buttonGroup3 div:nth-child(1) {
+    float: right;
+    border-radius: 0 5px 5px 0;
+}
+
+.buttonGroup3 div:nth-child(2), 
+.buttonGroup3 div:nth-child(3),
+.buttonGroup3 div:nth-child(4) {
+    float: right;
+    border-right: none;
+}
+
+.buttonGroup3 div:nth-child(5) {
+    float: right;
+    border-right: 0;
+    border-radius: 5px 0 0 5px;
+}
+
+.buttonSelected {
+    box-shadow: inset 1px 2px 2px rgba(0, 0, 0, 0.2);
+}

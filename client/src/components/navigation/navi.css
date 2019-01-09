@@ -1,0 +1,39 @@
+.naviContainer {
+    display: block;
+    width: 80%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.contentNavi {
+    float: left;
+    position: relative;
+    padding: 10px 0px 5px 0px;
+    font-size: 16px;
+}
+
+.pageNavi {
+    padding: 10px 0px 5px 0px;
+    text-align: right;
+}
+
+.contentNavi>a,
+.pageNavi>a {
+    padding: 5px 10px 5px 10px;
+    text-decoration: none;
+    transition: background-color 150ms linear, color 150ms 150ms linear;
+}
+
+.naviActive {
+    background-color: white;
+    color: black;
+}
+
+.naviInactive {
+    background-color: rgba(0, 0, 0, 0.333);
+    color: white;
+}
+
+.naviInactive:hover {
+    background-image: linear-gradient(to top, transparent 94%, #fff 96%, #fff 100%);
+}
