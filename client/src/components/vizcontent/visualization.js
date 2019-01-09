@@ -5,9 +5,7 @@ import OrdinaryCard from "./ordinary/ordinarycard";
 const visualize = (props) => {
     let visualizeBlock;
     if (props.curViz === "Ordinary") {
-        return (
-            <OrdinaryCard reports={props.reports}></OrdinaryCard>
-        )
+        visualizeBlock = <OrdinaryCard reports={props.reports}></OrdinaryCard>
     }
 
     return (

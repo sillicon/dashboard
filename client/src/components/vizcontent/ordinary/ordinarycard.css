@@ -57,6 +57,8 @@
     margin: 7px 10px 10px 0;
     width: 32px;
     height: 32px;
+    float: left;
+    border: 5px solid rgb(227, 227, 227);
 }
 
 .haschild {
@@ -215,16 +217,16 @@ button svg {
     cursor: pointer;
 }
 
-.ordinaryCard .buttonDisabled {
+.buttonDisabled {
     opacity: 0.35;
     pointer-events: none;
 }
 
-.ordinaryCard .cardButton:hover {
+.cardButton:hover {
     background-color: #005e95;
 }
 
-.ordinaryCard .avatar {
+.avatar {
     float: left;
     margin: auto 20px 10px 30px;
     width: 40px;

@@ -80,7 +80,6 @@ class App extends Component {
                 },
                 resultList = resArr[0].data,
                 stack;
-            console.log(root, resultList);
             for (let i = 0; i < resultList.length; i++) {
                 const report = resultList[i];
                 stack = [
@@ -121,7 +120,6 @@ class App extends Component {
                     }
                 }
             }
-            console.log(root);
             this.setState({
                 reports: root
             });
