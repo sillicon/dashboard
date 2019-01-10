@@ -1,15 +1,16 @@
 import React from "react";
+import {Loader} from "semantic-ui-react";
 import classes from "./visualization.css";
 import OrdinaryCard from "./ordinary/ordinarycard";
 
 const visualize = (props) => {
     let visualizeBlock;
     if (props.curViz === "Ordinary") {
-        visualizeBlock = <OrdinaryCard reports={props.reports}></OrdinaryCard>
+        visualizeBlock = props.reports ? <OrdinaryCard reports={props.reports}></OrdinaryCard> : <Loader active inline="centered" size="massive"></Loader>
     }
 
     return (
-        <div id="vizPane" className={classes.vizPane} reports={props.reports}>{visualizeBlock}</div>
+        <div id="vizPane" className={classes.vizPane}>{visualizeBlock}</div>
     )
 }
 

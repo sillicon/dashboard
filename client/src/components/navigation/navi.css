@@ -22,6 +22,7 @@
     padding: 5px 10px 5px 10px;
     text-decoration: none;
     transition: background-color 150ms linear, color 150ms 150ms linear;
+    margin-right: 3px;
 }
 
 .naviActive {
@@ -36,4 +37,5 @@
 
 .naviInactive:hover {
     background-image: linear-gradient(to top, transparent 94%, #fff 96%, #fff 100%);
+    color: white;
 }

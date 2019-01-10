@@ -15,7 +15,8 @@ const content = (props) => {
                 isCategoryView={props.isCategoryView}></Buttons>
             <Visualization curViz={props.curViz}
                 isCategoryView={props.isCategoryView}
-                reports={props.reports}></Visualization>
+                reports={props.reports}
+                semanticClass={props.semanticClass}></Visualization>
         </div>
     )
 }

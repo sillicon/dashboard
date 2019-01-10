@@ -1,6 +1,7 @@
 import React, {
     Component
 } from "react";
+import semanticClass from "../semantic/semantic.css";
 import classes from "./App.css";
 import Header from "../components/header/header";
 import Footer from "../components/footer/footer";
@@ -120,6 +121,7 @@ class App extends Component {
                     }
                 }
             }
+            console.log(root, resArr[0].data);
             this.setState({
                 reports: root
             });
@@ -150,7 +152,8 @@ class App extends Component {
 					switchEnvir={this.switchEnvir}
 					curViz={this.state.curViz}
 					isCategoryView={this.state.isCategoryView}
-					reports={this.state.reports}></Content>
+					reports={this.state.reports}
+                    semanticClass={semanticClass}></Content>
 				<Footer></Footer>
 			</div>
         );

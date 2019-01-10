@@ -1,0 +1,9 @@
+/*******************************
+     User Global Variables
+*******************************/
+@fontName: 'AvenirNextLTPro-Regular';
+@headerFont: @fontName;
+@pageFont: @fontName;
+@importGoogleFonts : false;
+
+@fontSize: 16px;

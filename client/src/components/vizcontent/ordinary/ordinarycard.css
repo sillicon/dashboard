@@ -91,12 +91,17 @@ button svg {
     overflow: hidden;
 }
 
-.nameCard .fieldTitle {
+.fieldTitle {
     /* margin: 0 20px 0 20px; */
     padding: 0 5px 0 30px;
+    margin: 10px 0 10px 0;
+    font-size: 20px;
+    color: #005e95;
+    height: 35px;
+    font-weight: bold;
 }
 
-.ordinaryCard .nameCard .fieldTitle :not(.github).icon:hover {
+.fieldTitle :not(.github).icon:hover {
     border-bottom: 2px solid transparent;
     border-bottom-color: #0079c1;
 }
