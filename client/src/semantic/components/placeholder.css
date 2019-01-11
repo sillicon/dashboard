@@ -91,7 +91,7 @@
 /* Lines */
 .ui.placeholder .line {
   position: relative;
-  height: 0.85714286em;
+  height: 0.75em;
 }
 .ui.placeholder .line:before,
 .ui.placeholder .line:after {
@@ -109,14 +109,14 @@
 
 /* Any Lines */
 .ui.placeholder .line {
-  margin-bottom: 0.5em;
+  margin-bottom: 0.4375em;
 }
 .ui.placeholder .line:before,
 .ui.placeholder .line:after {
-  height: 0.5em;
+  height: 0.4375em;
 }
 .ui.placeholder .line:not(:first-child) {
-  margin-top: 0.5em;
+  margin-top: 0.4375em;
 }
 
 /* Header Image + 2 Lines */
@@ -144,14 +144,14 @@
 
 /* Header Line 1 & 2*/
 .ui.placeholder .header .line {
-  margin-bottom: 0.64285714em;
+  margin-bottom: 0.5625em;
 }
 .ui.placeholder .header .line:before,
 .ui.placeholder .header .line:after {
-  height: 0.64285714em;
+  height: 0.5625em;
 }
 .ui.placeholder .header .line:not(:first-child) {
-  margin-top: 0.64285714em;
+  margin-top: 0.5625em;
 }
 .ui.placeholder .header .line:after {
   width: 20%;
@@ -164,11 +164,11 @@
   margin-left: 3em;
 }
 .ui.placeholder .image.header .line:before {
-  width: 0.71428571rem;
+  width: 0.625rem;
 }
 .ui.placeholder .image.header:after {
   display: block;
-  height: 0.85714286em;
+  height: 0.75em;
   content: '';
   margin-left: 3em;
 }
@@ -182,7 +182,7 @@
 .ui.placeholder .image:not(:first-child):before,
 .ui.placeholder .paragraph:not(:first-child):before,
 .ui.placeholder .header:not(:first-child):before {
-  height: 1.42857143em;
+  height: 1.25em;
   content: '';
   display: block;
 }

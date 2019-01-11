@@ -1,5 +1,5 @@
 import React from "react";
-import classes from "./content.css";
+import classes from "./content.module.css";
 import Title from "../components/title/title";
 import Buttons from "../components/vizbuttons/buttons";
 import Visualization from "../components/vizcontent/visualization";
@@ -16,7 +16,7 @@ const content = (props) => {
             <Visualization curViz={props.curViz}
                 isCategoryView={props.isCategoryView}
                 reports={props.reports}
-                semanticClass={props.semanticClass}></Visualization>
+                isLoading={props.isLoading}></Visualization>
         </div>
     )
 }

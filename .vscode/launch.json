@@ -15,7 +15,7 @@
             "request": "launch",
             "name": "Client",
             "cwd": "${workspaceFolder}/client",
-            "program": "${workspaceFolder}/client/scripts/start.js"
+            "program": "${workspaceFolder}/client/node_modules/react-scripts/scripts/start.js"
         }
     ],
     "compounds": [

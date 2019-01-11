@@ -1,5 +1,5 @@
 import React from "react";
-import classes from "./buttons.css";
+import classes from "./buttons.module.css";
 
 const buttons = (props) => {
     const vizArr = ["Sunburst", "Circle Pack", "Treemap", "Tree", "Ordinary"].map((ele) => {

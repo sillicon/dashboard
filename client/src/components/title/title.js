@@ -5,7 +5,7 @@ import {
 } from 'react-day-picker/moment';
 import DayPicker from "react-day-picker";
 import DayPickerInput from 'react-day-picker/DayPickerInput';
-import classes from "./title.css";
+import classes from "./title.module.css";
 import Navi from "../navigation/navi";
 
 const title = (props) => {

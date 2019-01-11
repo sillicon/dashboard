@@ -1,16 +1,8 @@
 import React from "react";
-import classes from "./header.css";
+import classes from "./header.module.css";
 
 const header = (props) => {
-    let userInfo = props.userInfo;
-    const login = 
-        <div onClick={userInfo ? props.checkProfile : props.gitLogin}>
-            <img
-                id="headerGitLogo" alt="GitHubLogo"
-                src={userInfo ? userInfo.photos[0].value : require("../../image/github.svg")}
-                className={classes.GitLogo}></img>
-            <div id="loginLabel" className={classes.loginLabel}>{userInfo ? userInfo.username : "Github Login"}</div>
-        </div>
+    const userInfo = props.userInfo;
 
     return (
         <header className={classes.siteHeader}>
@@ -20,7 +12,15 @@ const header = (props) => {
                     src={require("../../image/sampleLogo.png")}
                     className={classes.logo}></img>
                 <div id="siteName" className={classes.siteName}>Sample QA Dashboard</div>
-                <div id="loginGithub" className={classes.loginGithub}>{login}</div>
+                <div id="loginGithub"
+                    className={classes.loginGithub}
+                    onClick={userInfo ? props.checkProfile : props.gitLogin}>
+                    <img
+                        id="headerGitLogo" alt="GitHubLogo"
+                        src={userInfo ? userInfo.photos[0].value : require("../../image/github.svg")}
+                        className={classes.GitLogo}></img>
+                    <div id="loginLabel" className={classes.loginLabel}>{userInfo ? userInfo.username : "GitHub Login"}</div>
+                </div>
             </div>
         </header>
     )

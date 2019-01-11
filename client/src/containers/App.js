@@ -1,8 +1,8 @@
 import React, {
     Component
 } from "react";
-import semanticClass from "../semantic/semantic.css";
-import classes from "./App.css";
+import "../semantic/semantic.min.css";
+import classes from "./App.module.css";
 import Header from "../components/header/header";
 import Footer from "../components/footer/footer";
 import Content from "./content";
@@ -18,7 +18,8 @@ class App extends Component {
         curDate: new Date(),
         reports: null,
         curViz: "Ordinary",
-        isCategoryView: true
+        isCategoryView: true,
+        isLoading: true
     }
 
     componentWillMount() {
@@ -52,16 +53,20 @@ class App extends Component {
 
     queryChange = (selectDay) => {
         this.setState({
-            curDate: selectDay
+            curDate: selectDay,
+            isLoading: true
+        }, () => {
+            this.queryReports();
         });
-        this.queryReports();
     }
 
     switchEnvir = (env) => {
         this.setState({
-            envir: env
+            envir: env,
+            isLoading: true
+        }, () => {
+            this.queryReports();
         });
-        this.queryReports();
 	}
 	
 	queryReports = () => {
@@ -121,9 +126,9 @@ class App extends Component {
                     }
                 }
             }
-            console.log(root, resArr[0].data);
             this.setState({
-                reports: root
+                reports: root,
+                isLoading: false
             });
         });
 	}
@@ -153,7 +158,7 @@ class App extends Component {
 					curViz={this.state.curViz}
 					isCategoryView={this.state.isCategoryView}
 					reports={this.state.reports}
-                    semanticClass={semanticClass}></Content>
+                    isLoading={this.state.isLoading}></Content>
 				<Footer></Footer>
 			</div>
         );

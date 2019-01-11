@@ -1,7 +1,8 @@
 import React, {
     Component
 } from "react";
-import classes from "./ordinarycard.css";
+import {Transition} from "semantic-ui-react";
+import classes from "./ordinarycard.module.css";
 
 const plusSVG = <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 8 16 16" className="plus">
     <path d="M15 17H9v6H7v-6H1v-2h6V9h2v6h6v2z"></path>
@@ -49,7 +50,7 @@ class Ordinarycard extends Component {
     }
     
     shouldComponentUpdate(nextProps, nextState) {
-        if (nextProps.reports) {
+        if (nextProps.reports !== this.props.reports || nextState !== this.state) {
             return true;
         }
         return false;
@@ -102,10 +103,14 @@ class Ordinarycard extends Component {
         let cardArr = null;
         if (this.props.reports.hasOwnProperty("child")) {
             cardArr = this.props.reports.child.map((ele) => {
-                return <Ordinarycard reports={ele} key={ele.testName}></Ordinarycard>;
+                return <Transition
+                    key={ele.testName}
+                    duration={300}
+                    animation={"slide down"}
+                    visible={this.state.isOpen}><Ordinarycard reports={ele} key={ele.testName}></Ordinarycard></Transition>;
             });
         }
-        const cardHolder = this.state.isOpen ? <div className={classes.cardHolder}>{cardArr}</div> : null;
+        const cardHolder = <div className={classes.cardHolder}>{cardArr}</div>;
         return <div className={classes.ordinaryCard} key={this.props.reports.testName}>
             {button}{nameCard}{cardHolder}
         </div>

@@ -1,5 +1,5 @@
 import React from "react";
-import classes from "./navi.css";
+import classes from "./navi.module.css";
 
 const navigation = (props) => {
     const envirs = ["Envir1", "Envir2", "Envir3"].map((ele) => {
