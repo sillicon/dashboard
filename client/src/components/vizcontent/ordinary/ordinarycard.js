@@ -1,7 +1,7 @@
 import React, {
     Component
 } from "react";
-import {Transition} from "semantic-ui-react";
+import CardHolder from "./cardHolder";
 import classes from "./ordinarycard.module.css";
 
 const plusSVG = <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 8 16 16" className="plus">
@@ -100,21 +100,40 @@ class Ordinarycard extends Component {
         const nameCard = <div className={classes.nameCard}>
             <div className={classes.fieldTitle}>{this.props.reports.testName}</div>
         </div>
-        let cardArr = null;
-        if (this.props.reports.hasOwnProperty("child")) {
-            cardArr = this.props.reports.child.map((ele) => {
-                return <Transition
-                    key={ele.testName}
-                    duration={300}
-                    animation={"slide down"}
-                    visible={this.state.isOpen}><Ordinarycard reports={ele} key={ele.testName}></Ordinarycard></Transition>;
-            });
-        }
-        const cardHolder = <div className={classes.cardHolder}>{cardArr}</div>;
+        
         return <div className={classes.ordinaryCard} key={this.props.reports.testName}>
-            {button}{nameCard}{cardHolder}
+            {button}{nameCard}<CardHolder reports={this.props.reports} isOpen={this.state.isOpen}></CardHolder>
         </div>
     }
+
+    // state={
+    //     isOpen: true
+    // }
+
+    // toggleDiv = () => {
+    //     this.setState({
+    //         isOpen: !this.state.isOpen
+    //     })
+    // }
+
+    // render() {
+    //     const button = <button onClick={this.toggleDiv}>Toggle</button>
+    //     const divs=["dfasdfadf", "asdfasdfds", "sfadsf"];
+    //     const arr = [];
+    //     for (let i = 0; i < divs.length; i++) {
+    //         const element = divs[i];
+    //         arr.push(<Transition animation="slide down" duration={400} visible={this.state.isOpen}>
+    //             <div>{element}</div>
+    //         </Transition>)
+    //     }
+        
+    //     return (
+    //         <div>{button}
+    //             {arr}
+    //         </div>
+    //     )
+    // }
+
 }
 
 export default Ordinarycard;
