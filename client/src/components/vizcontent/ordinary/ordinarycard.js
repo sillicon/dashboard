@@ -1,6 +1,7 @@
 import React, {
     Component
 } from "react";
+import * as Promise from "bluebird";
 import CardHolder from "./cardHolder";
 import classes from "./ordinarycard.module.css";
 
@@ -22,10 +23,14 @@ class Ordinarycard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isOpen: false
+            isOpen: false,
         }
         if (props.reports.hasOwnProperty("testName") && props.reports.testName === "QA Category") {
             this.state.isOpen = true;
+        }
+        const {isOpen} = this.state;
+        if (props.reports.hasOwnProperty("child")) {
+            this.state.transArr = new Array(props.reports.child.length).fill(isOpen);
         }
     }
 
@@ -64,24 +69,47 @@ class Ordinarycard extends Component {
     toggleCardHolder = () => {
         const {isOpen} = this.state;
         this.setState({isOpen: !isOpen});
+        if (this.state.hasOwnProperty("transArr")) {
+            const promiseList = [];
+            for (let i = 0; i < this.props.reports.child.length; i++) {
+                promiseList.push(this.switchVisibility);
+            }
+            Promise.reduce(promiseList, (result, currentFunction, index) => {
+                return currentFunction(index);
+            }, null);
+        }
+    }
+
+    switchVisibility = (i) => {
+        const newArr = [...this.state.transArr], interval = Math.min(80, Math.max(200 / newArr.length, 10));
+        return Promise.delay(i === 0 ? 0 : interval).then(() => {
+            if (this.state.isOpen) {
+                newArr[i] = !newArr[i];
+            } else {
+                let length = newArr.length - 1;
+                newArr[length - i] = !newArr[length - i];
+            }
+            this.setState({transArr: [...newArr]});
+        });
     }
 
     render() {
-        // return this.container;
+        const passBtn={border: "5px solid rgb(102, 220, 102)"}, failBtn={border: "5px solid rgb(255, 178, 178)"};
         const button = <button
             className={this.props.reports.hasOwnProperty("child") ? classes.haschild : classes.nochild}
+            style={this.props.reports.hasOwnProperty("testResult") ? (this.props.testResult === "Pass" ? passBtn : failBtn) : null}
             onClick={this.toggleCardHolder.bind(this)}>{
                 this.props.reports.hasOwnProperty("cateName") ? reportSVG : (this.props.reports.hasOwnProperty("child") ? (this.state.isOpen ? minusSVG : plusSVG) : dotSVG)
             }
         </button>
-        const passColor={backgroundColor: "rgb(222,255,222"}, failColor={backgroundColor:"rgb(248,203,203)"};
+        const passColor={backgroundColor: "rgb(222,255,222"}, failColor={backgroundColor:"rgb(255,231,231)"};
         let newStyle = this.props.reports.hasOwnProperty("testResult") ? (this.props.testResult === "Pass" ? passColor : failColor) : null;
         const nameCard = <div className={classes.nameCard} style={newStyle} >
             <div className={classes.fieldTitle}>{this.props.reports.testName}</div>
         </div>
         const {reports, className, ...rest} = this.props;
         return <div className={className ? className + " " + classes.ordinaryCard: classes.ordinaryCard} {...rest}>
-            {button}{nameCard}<CardHolder reports={this.props.reports} isOpen={this.state.isOpen}></CardHolder>
+            {button}{nameCard}<CardHolder reports={this.props.reports} isOpen={this.state.isOpen} transArr={this.state.transArr}></CardHolder>
         </div>
     }
 }
