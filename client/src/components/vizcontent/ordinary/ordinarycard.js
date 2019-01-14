@@ -27,7 +27,6 @@ class Ordinarycard extends Component {
         if (props.reports.hasOwnProperty("testName") && props.reports.testName === "QA Category") {
             this.state.isOpen = true;
         }
-        // this.container = this.updateContainer(this.props, this.state);
     }
 
     componentWillMount() {
@@ -49,12 +48,12 @@ class Ordinarycard extends Component {
         // }
     }
     
-    shouldComponentUpdate(nextProps, nextState) {
-        if (nextProps.reports !== this.props.reports || nextState !== this.state) {
-            return true;
-        }
-        return false;
-    }
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     if (nextProps.reports !== this.props.reports || nextState !== this.state) {
+    //         return true;
+    //     }
+    //     return false;
+    // }
 
     // componentWillUpdate(nextProps, nextState) {
     //     if (nextProps.reports) {
@@ -63,31 +62,9 @@ class Ordinarycard extends Component {
     // }
 
     toggleCardHolder = () => {
-        const bool = this.state.isOpen;
-        this.setState({isOpen: !bool});
+        const {isOpen} = this.state;
+        this.setState({isOpen: !isOpen});
     }
-
-    // updateContainer = (nextProps, nextState) => {
-    //     const button = <button
-    //         className={nextProps.reports.hasOwnProperty("child") ? classes.haschild : classes.nochild}
-    //         onClick={this.toggleCardHolder}>{
-    //             nextProps.reports.hasOwnProperty("cateName") ? reportSVG : (nextProps.reports.hasOwnProperty("child") ? (nextState.isOpen ? minusSVG : plusSVG) : dotSVG)
-    //         }
-    //     </button>
-    //     const nameCard = <div className={classes.nameCard}>
-    //         <div className={classes.fieldTitle}>{nextProps.reports.testName}</div>
-    //     </div>
-    //     let cardArr = null;
-    //     if (nextProps.reports.hasOwnProperty("child")) {
-    //         cardArr = nextProps.reports.child.map((ele) => {
-    //             return new ordinarycard({reports: ele}).render();
-    //         });
-    //     }
-    //     const cardHolder = this.state.isOpen ? <div className={classes.cardHolder}>{cardArr}</div> : null;
-    //     return <div className={classes.ordinaryCard} key={nextProps.reports.testName}>
-    //         {button}{nameCard}{cardHolder}
-    //     </div>
-    // }
 
     render() {
         // return this.container;
@@ -97,43 +74,16 @@ class Ordinarycard extends Component {
                 this.props.reports.hasOwnProperty("cateName") ? reportSVG : (this.props.reports.hasOwnProperty("child") ? (this.state.isOpen ? minusSVG : plusSVG) : dotSVG)
             }
         </button>
-        const nameCard = <div className={classes.nameCard}>
+        const passColor={backgroundColor: "rgb(222,255,222"}, failColor={backgroundColor:"rgb(248,203,203)"};
+        let newStyle = this.props.reports.hasOwnProperty("testResult") ? (this.props.testResult === "Pass" ? passColor : failColor) : null;
+        const nameCard = <div className={classes.nameCard} style={newStyle} >
             <div className={classes.fieldTitle}>{this.props.reports.testName}</div>
         </div>
-        
-        return <div className={classes.ordinaryCard} key={this.props.reports.testName}>
+        const {reports, className, ...rest} = this.props;
+        return <div className={className ? className + " " + classes.ordinaryCard: classes.ordinaryCard} {...rest}>
             {button}{nameCard}<CardHolder reports={this.props.reports} isOpen={this.state.isOpen}></CardHolder>
         </div>
     }
-
-    // state={
-    //     isOpen: true
-    // }
-
-    // toggleDiv = () => {
-    //     this.setState({
-    //         isOpen: !this.state.isOpen
-    //     })
-    // }
-
-    // render() {
-    //     const button = <button onClick={this.toggleDiv}>Toggle</button>
-    //     const divs=["dfasdfadf", "asdfasdfds", "sfadsf"];
-    //     const arr = [];
-    //     for (let i = 0; i < divs.length; i++) {
-    //         const element = divs[i];
-    //         arr.push(<Transition animation="slide down" duration={400} visible={this.state.isOpen}>
-    //             <div>{element}</div>
-    //         </Transition>)
-    //     }
-        
-    //     return (
-    //         <div>{button}
-    //             {arr}
-    //         </div>
-    //     )
-    // }
-
 }
 
 export default Ordinarycard;

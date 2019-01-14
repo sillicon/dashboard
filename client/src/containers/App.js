@@ -109,6 +109,19 @@ class App extends Component {
                                 insertObj.reportURL = report.reportURL;
                             }
                             lastEle[0].child.push(insertObj);
+                            const bool = report.testResult;
+                            for (let j = stack.length - 1; j > -1 ; j--) {
+                                const ele = stack[j][0];
+                                if (ele.hasOwnProperty("testResult")) {
+                                    if (bool === "Fail" && ele.testResult === "Pass") {
+                                        ele.testResult = bool;
+                                    } else {
+                                        break;
+                                    }
+                                } else {
+                                    ele.testResult = bool;
+                                }
+                            }
                             break;
                         } else {
                             stack.pop();
