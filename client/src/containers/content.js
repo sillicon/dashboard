@@ -12,7 +12,8 @@ const content = (props) => {
                 queryChange={props.queryChange}
                 switchEnvir={props.switchEnvir}></Title>
             <Buttons curViz={props.curViz}
-                isCategoryView={props.isCategoryView}></Buttons>
+                isCategoryView={props.isCategoryView}
+                changeViz={props.changeViz}></Buttons>
             <Visualization curViz={props.curViz}
                 isCategoryView={props.isCategoryView}
                 reports={props.reports}

@@ -1,0 +1,24 @@
+.circlePacknode {
+    cursor: pointer;
+}
+
+.circlePacknode:hover {
+    stroke: rgb(255, 255, 255);
+    stroke-width: 2px;
+}
+
+.circlePacknode--leaf:hover {
+    stroke: rgb(255, 255, 255);
+    stroke-width: 2px;
+}
+
+.circlePacklabel {
+    font: 1rem "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-anchor: middle;
+    text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff;
+}
+
+.circlePacklabel,
+.circlePacknode--root {
+    pointer-events: none;
+}

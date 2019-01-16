@@ -58,6 +58,7 @@ app.use(passport.session());
 
 //define static public path
 app.use(deployPath, express.static(path.join(__dirname + "/../client/build")));
+app.use(deployPath + "/report", express.static(path.join(__dirname + "/public/report")));
 
 //use middlewares
 app.use(deployPath, uploadReport);

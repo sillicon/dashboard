@@ -1,0 +1,27 @@
+.sunburstPath {
+    stroke: #fff;
+}
+
+.sunburstPath.testPass {
+    fill: #a6f3a6;
+}
+
+.sunburstPath.testPass:hover {
+    fill: #00a300;
+}
+
+.sunburstPath.testFail {
+    fill: #f8cbcb;
+}
+
+.sunburstPath.testFail:hover {
+    fill: #ff3030;
+}
+
+.sunburstPath.norun {
+    fill: #e4e4e4;
+}
+
+.sunburstPath.norun:hover {
+    fill: #bebebe;
+}

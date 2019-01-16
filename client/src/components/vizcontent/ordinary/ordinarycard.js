@@ -97,15 +97,15 @@ class Ordinarycard extends Component {
         const passBtn={border: "5px solid rgb(102, 220, 102)"}, failBtn={border: "5px solid rgb(255, 178, 178)"};
         const button = <button
             className={this.props.reports.hasOwnProperty("child") ? classes.haschild : classes.nochild}
-            style={this.props.reports.hasOwnProperty("testResult") ? (this.props.testResult === "Pass" ? passBtn : failBtn) : null}
+            style={this.props.reports.hasOwnProperty("testResult") ? (this.props.reports.testResult === "Pass" ? passBtn : failBtn) : null}
             onClick={this.toggleCardHolder.bind(this)}>{
                 this.props.reports.hasOwnProperty("cateName") ? reportSVG : (this.props.reports.hasOwnProperty("child") ? (this.state.isOpen ? minusSVG : plusSVG) : dotSVG)
             }
         </button>
         const passColor={backgroundColor: "rgb(222,255,222"}, failColor={backgroundColor:"rgb(255,231,231)"};
-        let newStyle = this.props.reports.hasOwnProperty("testResult") ? (this.props.testResult === "Pass" ? passColor : failColor) : null;
+        let newStyle = this.props.reports.hasOwnProperty("testResult") ? (this.props.reports.testResult === "Pass" ? passColor : failColor) : null;
         const nameCard = <div className={classes.nameCard} style={newStyle} >
-            <div className={classes.fieldTitle}>{this.props.reports.testName}</div>
+            <div className={classes.fieldTitle}>{this.props.reports.hasOwnProperty("cateName") ? <a href={"./report/" + this.props.reports.testName}>{this.props.reports.testName}</a> : this.props.reports.testName}</div>
         </div>
         const {reports, className, ...rest} = this.props;
         return <div className={className ? className + " " + classes.ordinaryCard: classes.ordinaryCard} {...rest}>

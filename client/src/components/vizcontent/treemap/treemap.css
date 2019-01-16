@@ -1,0 +1,16 @@
+.treemapNode text {
+    font-size: 20px;
+}
+
+.treemapNode.reportName {
+    font-size: 14px;
+}
+
+.treemapNode rect {
+    shape-rendering: crispEdges;
+}
+
+.treemapNode--hover rect {
+    stroke: rgb(251, 255, 1);
+    stroke-width: 2px;
+}

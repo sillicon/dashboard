@@ -5,7 +5,6 @@ import classes from "./ordinarycard.module.css";
 
 const cardHolder = (props) => {
     let cardArr = null;
-    const hide = 300, show = 500;
     if (props.reports.hasOwnProperty("child")) {
         cardArr = [];
         for (let i = 0; i < props.reports.child.length; i++) {

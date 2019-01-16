@@ -68,8 +68,71 @@ class App extends Component {
             this.queryReports();
         });
 	}
-	
+    
+    changeViz = (newViz) => {
+        if (newViz === "Category") {
+            this.setState({
+                curViz: "Ordinary",
+                isCategoryView: true
+            });
+            this.queryReports();
+        } else if (newViz === "DetailCard") {
+            this.setState({
+                curViz: "DetailCard",
+                isCategoryView: false
+            });
+            this.getLatestReports();
+        } else {
+            this.setState({
+                curViz: newViz
+            });
+        }
+    }
+
+    getLatestReports = () => {
+        this.setState({
+            isLoading: true
+        });
+        const urls = [
+            "./getLatestReports" + this.formatParams({
+                envir: this.state.envir,
+                testDate: moment(this.state.curDate).format("MM/DD/YYYY")
+            }),
+            "./getIDRef"
+        ]
+        Promise.map(urls, (url) => {
+            return axios.get(url);
+        }).then((resArr) => {
+            const reports = [...resArr[0].data], areas = resArr[1].data, res = [];
+            for (const key in areas) {
+                if (areas.hasOwnProperty(key)) {
+                    const newObj = {
+                        testName: areas[key],
+                        child: [],
+                        passCount: 0
+                    }
+                    for (let i = 0; i < reports.length; i++) {
+                        const report = reports[i];
+                        if (newObj.testName === report.testName) {
+                            newObj.child.push(report);
+                            reports.splice(i, 1);
+                            break;
+                        }
+                    }
+                    res.push(newObj);
+                }
+            }
+            this.setState({
+                reports: res,
+                isLoading: false
+            });
+        });
+    }
+
 	queryReports = () => {
+        this.setState({
+            isLoading: true
+        });
 		const urls = [
             "./getLatestReports" + this.formatParams({
                 envir: this.state.envir,
@@ -144,7 +207,8 @@ class App extends Component {
                 isLoading: false
             });
         });
-	}
+    }
+    
 
     formatParams = (params) => {
         return "?" + Object
@@ -171,7 +235,8 @@ class App extends Component {
 					curViz={this.state.curViz}
 					isCategoryView={this.state.isCategoryView}
 					reports={this.state.reports}
-                    isLoading={this.state.isLoading}></Content>
+                    isLoading={this.state.isLoading}
+                    changeViz={this.changeViz}></Content>
 				<Footer></Footer>
 			</div>
         );

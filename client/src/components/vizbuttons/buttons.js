@@ -8,7 +8,7 @@ const buttons = (props) => {
                 id={ele.replace(/ /g, "")+"View"}
                 key={ele.replace(/ /g, "")}
                 className={props.curViz === ele ? classes.buttonSelected : ""}
-                onClick={props.changeViz}>{ele}</div>
+                onClick={props.changeViz.bind(this, ele)}>{ele}</div>
         )
     });
 
@@ -18,10 +18,10 @@ const buttons = (props) => {
                 <div id="summary">Summary</div>
             </div>
             <div className={classes.buttonGroup2}>
-                <div id="categoryView" className={props.isCategoryView ? classes.buttonSelected : ""}>Category View</div>
-                <div id="cardView" className={props.isCategoryView ? "" : classes.buttonSelected}>Detail Card View</div>
+                <div id="categoryView" className={props.isCategoryView ? classes.buttonSelected : ""} onClick={props.changeViz.bind(this, "Category")}>Category View</div>
+                <div id="cardView" className={props.isCategoryView ? "" : classes.buttonSelected} onClick={props.changeViz.bind(this, "DetailCard")}>Detail Card View</div>
             </div>
-            <div className={classes.buttonGroup3}>{vizArr}</div>
+            <div className={classes.buttonGroup3}>{props.curViz !== "DetailCard" ? vizArr : null}</div>
         </div>
     )
 }
