@@ -114,6 +114,9 @@ class App extends Component {
                     for (let i = 0; i < reports.length; i++) {
                         const report = reports[i];
                         if (newObj.testName === report.testName) {
+                            if (report.testResult === "Pass") {
+                                newObj.passCount++;
+                            }
                             newObj.child.push(report);
                             reports.splice(i, 1);
                             break;
@@ -122,6 +125,7 @@ class App extends Component {
                     res.push(newObj);
                 }
             }
+            console.log(res);
             this.setState({
                 reports: res,
                 isLoading: false

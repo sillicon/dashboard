@@ -6,6 +6,7 @@ import Tree from "./tree/tree";
 import TreeMap from "./treemap/treemap";
 import CirclePack from "./circlepack/circlepack";
 import Sunburst from "./sunburst/sunburst";
+import DetailCard from "./detailcard/detailcard";
 
 const visualize = (props) => {
     let visualizeBlock;
@@ -22,6 +23,8 @@ const visualize = (props) => {
             visualizeBlock = <CirclePack reports={props.reports}></CirclePack>
         } else if (props.curViz === "Sunburst") {
             visualizeBlock = <Sunburst reports={props.reports}></Sunburst>
+        } else if (props.curViz === "DetailCard") {
+            visualizeBlock = <DetailCard reports={props.reports}></DetailCard>
         }
     }
     
