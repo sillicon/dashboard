@@ -11,7 +11,6 @@ const buttons = (props) => {
                 onClick={props.changeViz.bind(this, ele)}>{ele}</div>
         )
     });
-
     return (
         <div id="buttonContainer" className={classes.buttonContainer}>
             <div className={classes.buttonGroup1}>

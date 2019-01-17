@@ -2,6 +2,8 @@ import React, {
     Component
 } from "react";
 import * as d3 from "d3";
+import "./detailcard.css";
+import classes from "./detailcard.module.css";
 
 class Gauge extends Component {
     componentDidMount() {
@@ -19,9 +21,11 @@ class Gauge extends Component {
             svgHeight = 200,
             width = svgWidth - margin.left - margin.right,
             height = svgHeight - margin.top - margin.bottom,
-            totalTest = this.props.obj.child.length,
-            passCount = this.props.obj.passCount;
-        let svg = d3.select("#" + this.props.obj.testName.replace(/ /g)).append("svg").attr("style", "width: " + svgWidth + "px\; height: " + svgHeight + "px\;");
+            obj = this.props.obj,
+            totalTest = obj.child.length,
+            passCount = obj.passCount,
+            browserName = this.props.browserName;
+        let svg = d3.select("#" + obj.testName.replace(/ /g, "")).append("svg").attr("style", "width: " + svgWidth + "px; height: " + svgHeight + "px;");
         if (totalTest !== 0) {
             let percent = passCount / totalTest;
             let resultText = svg.append("text").text(null);
@@ -52,26 +56,18 @@ class Gauge extends Component {
             let strWidth2 = resultLabel.node().getComputedTextLength();
             resultLabel.attr("x", svgWidth / 2 - strWidth2 / 2);
             let successArc = svg.data(function() {
-                return this.props.obj.child.map((ele) => {
-                    if (ele.testResult === "Pass") {
-                        if (ele.hasOwnProperty("reportURL")) {
-                            return ele.reportURL;
-                        } else {
-                            return ele.fileName;
-                        }
-                    }
+                return obj.child.filter((ele) => {
+                    return ele.testResult === "Pass";
+                }).map((ele) => {
+                    return ele.hasOwnProperty("reportURL") ? ele.reportURL : ele.fileName;
                 });
             }).append("path").attr("class", "successArc")
             .attr("transform", "translate(" + (width / 2 + margin.left) + "," + (height / 2 + margin.top) + ")");
             let failArc = svg.data(function() {
-                return this.props.obj.child.map((ele) => {
-                    if (ele.testResult === "Fail") {
-                        if (ele.hasOwnProperty("reportURL")) {
-                            return ele.reportURL;
-                        } else {
-                            return ele.fileName;
-                        }
-                    }
+                return obj.child.filter((ele) => {
+                    return ele.testResult === "Fail";
+                }).map((ele) => {
+                    return ele.hasOwnProperty("reportURL") ? ele.reportURL : ele.fileName;
                 });
             }).append("path")
                 .attr("class", "failArc")
@@ -91,7 +87,7 @@ class Gauge extends Component {
                     arc1.endAngle(-Math.PI * 3 / 4 + temp1 / 100 * Math.PI * 3 / 2);
                     successArc.attr("d", arc1);
                     temp1++;
-                } else if (temp1 >= percent * 100 && temp2 == 0) {
+                } else if (temp1 >= percent * 100 && temp2 === 0) {
                     arc1.endAngle(-Math.PI * 3 / 4 + percent * Math.PI * 3 / 2);
                     successArc.attr("d", arc1);
                     arc2.endAngle(-Math.PI * 3 / 4 + (percent + temp2 / 100) * Math.PI * 3 / 2);
@@ -101,7 +97,7 @@ class Gauge extends Component {
                     arc2.endAngle(-Math.PI * 3 / 4 + (percent + temp2 / 100) * Math.PI * 3 / 2);
                     failArc.attr("d", arc2);
                     temp2++;
-                } else if (temp1 + temp2 == 100) {
+                } else if (temp1 + temp2 === 100) {
                     arc2.endAngle(Math.PI * 3 / 4);
                     failArc.attr("d", arc2);
                     clearInterval(timer);
@@ -164,51 +160,51 @@ class Gauge extends Component {
                 });
                 div.style("display", "block");
                 div.style("left", function() {
-                    let arcLeft = tempScg.getBoundingClientRect().left,
-                        arcWidth = tempScg.getBoundingClientRect().width,
-                        tipWidth = this.getBoundingClientRect().width,
-                        scrollWidth;
-                    //set ::after rule based on different browser
-                    let sheet = document.styleSheets;
-                    for (let i = 0; i < sheet.length; i++) {
-                        if (sheet[i].href.indexOf("Home") > -1) {
-                            if (isFirefox) {
-                                mainSheet = sheet[i].cssRules;
-                            } else {
-                                mainSheet = sheet[i].rules;
-                            }
-                            i = sheet.length;
-                            for (let j = 0; j < mainSheet.length; j++) {
-                                if (mainSheet[j].selectorText === "div.testListTip::after") {
-                                    tipAfterRule = mainSheet[j];
-                                    j = mainSheet.length;
-                                }
-                            }
-                        }
-                    }
-                    if (isIE) {
-                        tipAfterRule.style.margin = "-5px 0px 0px -16px";
-                    } else {
-                        tipAfterRule.style.margin = "-5px 0px 0px -" + (tipWidth / 2 + 10) + "px";
-                    }
-                    if (isSafari || isEdge) {
-                        scrollWidth = document.getElementsByTagName("body")[0].scrollLeft;
-                    } else if (isChrome || isFirefox || isIE) {
-                        scrollWidth = document.getElementsByTagName("html")[0].scrollLeft;
-                    }
-                    return ((arcLeft + pos[0] + scrollWidth + 15) + "px");
+                    // let arcLeft = tempScg.getBoundingClientRect().left,
+                    //     arcWidth = tempScg.getBoundingClientRect().width,
+                    //     tipWidth = this.getBoundingClientRect().width,
+                    //     scrollWidth;
+                    // //set ::after rule based on different browser
+                    // let sheet = document.styleSheets;
+                    // for (let i = 0; i < sheet.length; i++) {
+                    //     if (sheet[i].href.indexOf("Home") > -1) {
+                    //         if (browserName === "firefox") {
+                    //             mainSheet = sheet[i].cssRules;
+                    //         } else {
+                    //             mainSheet = sheet[i].rules;
+                    //         }
+                    //         i = sheet.length;
+                    //         for (let j = 0; j < mainSheet.length; j++) {
+                    //             if (mainSheet[j].selectorText === "div.testListTip::after") {
+                    //                 tipAfterRule = mainSheet[j];
+                    //                 j = mainSheet.length;
+                    //             }
+                    //         }
+                    //     }
+                    // }
+                    // if (isIE) {
+                    //     tipAfterRule.style.margin = "-5px 0px 0px -16px";
+                    // } else {
+                    //     tipAfterRule.style.margin = "-5px 0px 0px -" + (tipWidth / 2 + 10) + "px";
+                    // }
+                    // if (isSafari || isEdge) {
+                    //     scrollWidth = document.getElementsByTagName("body")[0].scrollLeft;
+                    // } else if (isChrome || isFirefox || isIE) {
+                    //     scrollWidth = document.getElementsByTagName("html")[0].scrollLeft;
+                    // }
+                    // return ((arcLeft + pos[0] + scrollWidth + 15) + "px");
                 });
                 div.style("top", function() {
-                    let arctTop = tempScg.getBoundingClientRect().top,
-                        arcHeight = tempScg.getBoundingClientRect().height,
-                        tipHeight = this.getBoundingClientRect().height,
-                        scrollHeight;
-                    if (isSafari || isEdge) {
-                        scrollHeight = document.getElementsByTagName("body")[0].scrollTop;
-                    } else if (isChrome || isFirefox || isIE) {
-                        scrollHeight = document.getElementsByTagName("html")[0].scrollTop;
-                    }
-                    return ((arctTop + pos[1] + scrollHeight - tipHeight / 2) + "px");
+                    // let arctTop = tempScg.getBoundingClientRect().top,
+                    //     arcHeight = tempScg.getBoundingClientRect().height,
+                    //     tipHeight = this.getBoundingClientRect().height,
+                    //     scrollHeight;
+                    // if (isSafari || isEdge) {
+                    //     scrollHeight = document.getElementsByTagName("body")[0].scrollTop;
+                    // } else if (isChrome || isFirefox || isIE) {
+                    //     scrollHeight = document.getElementsByTagName("html")[0].scrollTop;
+                    // }
+                    // return ((arctTop + pos[1] + scrollHeight - tipHeight / 2) + "px");
                 });
             });
 
@@ -216,22 +212,22 @@ class Gauge extends Component {
     }
 
     render() {
-        return <div id={this.props.testName.replace(/ /g)}></div>
+        return <div id={this.props.obj.testName.replace(/ /g, "")}></div>
     }
 }
 
 const detailCard = (props) => {
     const divArr = props.reports.map((obj) => {
-        const title = <div>{obj.testName}</div>
+        const title = <div className={classes.fieldTitle}>{obj.testName}</div>
         const desc = <div>{"Total test run for today: " + obj.child.length}</div>
+        const gauge = <Gauge obj={obj}></Gauge>
+        const testDesc = <a href="https://github.com/sillicon">Test case description</a>
 
-        const testDesc = <div></div>
-
-        return
+        return <div key={obj.testName} className="areaCard">
+            {title}{desc}{gauge}{testDesc}
+        </div>
     });
-
-
-    return <div id="detailCard"></div>
+    return <div id="detailCard">{divArr}</div>
 }
 
 export default detailCard;

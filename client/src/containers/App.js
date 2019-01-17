@@ -9,17 +9,21 @@ import Content from "./content";
 import axios from "axios";
 import * as moment from "moment";
 import * as Promise from "bluebird";
-
+import * as detect from "detect-browser";
 class App extends Component {
 
-    state = {
-        user: null,
-        envir: "Envir1",
-        curDate: new Date(),
-        reports: null,
-        curViz: "Ordinary",
-        isCategoryView: true,
-        isLoading: true
+    constructor(props) {
+        super(props);
+        this.state = {
+            user: null,
+            envir: "Envir1",
+            curDate: new Date(),
+            reports: null,
+            curViz: "Ordinary",
+            isCategoryView: true,
+            isLoading: true,
+            browserName: detect.detect().name
+        }
     }
 
     componentWillMount() {
@@ -38,7 +42,7 @@ class App extends Component {
                 }
             });
         }
-		this.queryReports();
+        this.queryReports();
     }
 
     githubLogin = () => {
@@ -56,7 +60,11 @@ class App extends Component {
             curDate: selectDay,
             isLoading: true
         }, () => {
-            this.queryReports();
+            if (this.state.isCategoryView) {
+                this.queryReports();
+            } else {
+                this.getLatestReports();
+            }
         });
     }
 
@@ -65,23 +73,31 @@ class App extends Component {
             envir: env,
             isLoading: true
         }, () => {
-            this.queryReports();
+            if (this.state.isCategoryView) {
+                this.queryReports();
+            } else {
+                this.getLatestReports();
+            }
         });
-	}
-    
+    }
+
     changeViz = (newViz) => {
         if (newViz === "Category") {
-            this.setState({
-                curViz: "Ordinary",
-                isCategoryView: true
-            });
-            this.queryReports();
+            if (!this.state.isLoading) {
+                this.setState({
+                    curViz: "Ordinary",
+                    isCategoryView: true
+                });
+                this.queryReports();
+            }
         } else if (newViz === "DetailCard") {
-            this.setState({
-                curViz: "DetailCard",
-                isCategoryView: false
-            });
-            this.getLatestReports();
+            if (!this.state.isLoading) {
+                this.setState({
+                    curViz: "DetailCard",
+                    isCategoryView: false
+                });
+                this.getLatestReports();
+            }           
         } else {
             this.setState({
                 curViz: newViz
@@ -92,127 +108,159 @@ class App extends Component {
     getLatestReports = () => {
         this.setState({
             isLoading: true
-        });
-        const urls = [
-            "./getLatestReports" + this.formatParams({
-                envir: this.state.envir,
-                testDate: moment(this.state.curDate).format("MM/DD/YYYY")
-            }),
-            "./getIDRef"
-        ]
-        Promise.map(urls, (url) => {
-            return axios.get(url);
-        }).then((resArr) => {
-            const reports = [...resArr[0].data], areas = resArr[1].data, res = [];
-            for (const key in areas) {
-                if (areas.hasOwnProperty(key)) {
-                    const newObj = {
-                        testName: areas[key],
-                        child: [],
-                        passCount: 0
-                    }
-                    for (let i = 0; i < reports.length; i++) {
-                        const report = reports[i];
-                        if (newObj.testName === report.testName) {
-                            if (report.testResult === "Pass") {
-                                newObj.passCount++;
-                            }
-                            newObj.child.push(report);
-                            reports.splice(i, 1);
-                            break;
-                        }
-                    }
-                    res.push(newObj);
-                }
-            }
-            console.log(res);
-            this.setState({
-                reports: res,
-                isLoading: false
-            });
-        });
-    }
-
-	queryReports = () => {
-        this.setState({
-            isLoading: true
-        });
-		const urls = [
-            "./getLatestReports" + this.formatParams({
-                envir: this.state.envir,
-                testDate: moment(this.state.curDate).format("MM/DD/YYYY")
-            }),
-            "./getTestName"
-        ]
-        Promise.map(urls, (url) => {
-            return axios.get(url);
-        }).then((resArr) => {
-            let root = {
-                    testName: "QA Category",
-                    child: resArr[1].data
-                },
-                resultList = resArr[0].data,
-                stack;
-            for (let i = 0; i < resultList.length; i++) {
-                const report = resultList[i];
-                stack = [
-                    [root, 0]
-                ];
-                while (stack.length > 0) {
-                    let lastEle = stack[stack.length - 1];
-                    if (lastEle[0].hasOwnProperty("id")) {
-                        if (lastEle[0].id === report.testID) {
-                            if (!lastEle[0].hasOwnProperty("child")) {
-                                lastEle[0].child = [];
-                            }
-                            let insertObj = {
-                                testName: report.fileName,
-                                testResult: report.testResult,
-                                cateName: report.testName,
-                                uniqueID: report._id,
-                                comments: report.comments
-                            }
-                            if (report.hasOwnProperty("reportURL")) {
-                                insertObj.reportURL = report.reportURL;
-                            }
-                            lastEle[0].child.push(insertObj);
-                            const bool = report.testResult;
-                            for (let j = stack.length - 1; j > -1 ; j--) {
-                                const ele = stack[j][0];
-                                if (ele.hasOwnProperty("testResult")) {
-                                    if (bool === "Fail" && ele.testResult === "Pass") {
-                                        ele.testResult = bool;
-                                    } else {
-                                        break;
+        }, () => {
+            const urls = [
+                "./getLatestReports" + this.formatParams({
+                    envir: this.state.envir,
+                    testDate: moment(this.state.curDate).format("MM/DD/YYYY")
+                }),
+                "./getIDRef"
+            ]
+            Promise.map(urls, (url) => {
+                return axios.get(url);
+            }).then((resArr) => {
+                const reports = [...resArr[0].data],
+                    areas = resArr[1].data,
+                    res = [], skipPos = [];
+                for (let i = 0; i < reports.length; i++) {
+                    const report = reports[i];
+                    if (res.length > 0) {
+                        for (let j = 0; j < res.length; j++) {
+                            const resEle = res[j];
+                            if (resEle.testName === report.testName) {
+                                resEle.child.push(report);
+                                resEle.passCount = report.testResult === "Pass" ? resEle.passCount + 1 : resEle.passCount;
+                            } else if (j === res.length - 1) {
+                                for (const key in areas) {
+                                    if (areas.hasOwnProperty(key) && skipPos.indexOf(key) < 0) {
+                                        if (areas[key] === report.testName) {
+                                            res.push({
+                                                testName: areas[key],
+                                                child: [report],
+                                                passCount: report.testResult === "Pass" ? 1: 0
+                                            });
+                                            skipPos.push(key);
+                                            break;
+                                        }
                                     }
-                                } else {
-                                    ele.testResult = bool;
                                 }
                             }
-                            break;
-                        } else {
-                            stack.pop();
-                            stack[stack.length - 1][1]++;
                         }
                     } else {
-                        if (lastEle[0].hasOwnProperty("child") && lastEle[1] < lastEle[0].child.length) {
-                            stack.push([lastEle[0].child[lastEle[1]], 0]);
-                        } else {
-                            stack.pop();
-                            if (stack.length > 0) {
-                                stack[stack.length - 1][1]++;
+                        for (const key in areas) {
+                            if (areas.hasOwnProperty(key)) {
+                                if (areas[key] === report.testName) {
+                                    res.push({
+                                        testName: areas[key],
+                                        child: [report],
+                                        passCount: report.testResult === "Pass" ? 1: 0
+                                    });
+                                    skipPos.push(key);
+                                    break;
+                                }
                             }
                         }
                     }
                 }
-            }
-            this.setState({
-                reports: root,
-                isLoading: false
+                for (const key in areas) {
+                    if (areas.hasOwnProperty(key) && skipPos.indexOf(key) < 0) {
+                        res.push({
+                            testName: areas[key],
+                            child: [],
+                            passCount: 0
+                        });
+                    }
+                }
+                this.setState({
+                    reports: res,
+                    isLoading: false
+                });
             });
         });
+
     }
-    
+
+    queryReports = () => {
+        this.setState({
+            isLoading: true
+        }, () => {
+            const urls = [
+                "./getLatestReports" + this.formatParams({
+                    envir: this.state.envir,
+                    testDate: moment(this.state.curDate).format("MM/DD/YYYY")
+                }),
+                "./getTestName"
+            ]
+            Promise.map(urls, (url) => {
+                return axios.get(url);
+            }).then((resArr) => {
+                let root = {
+                        testName: "QA Category",
+                        child: resArr[1].data
+                    },
+                    resultList = resArr[0].data,
+                    stack;
+                for (let i = 0; i < resultList.length; i++) {
+                    const report = resultList[i];
+                    stack = [
+                        [root, 0]
+                    ];
+                    while (stack.length > 0) {
+                        let lastEle = stack[stack.length - 1];
+                        if (lastEle[0].hasOwnProperty("id")) {
+                            if (lastEle[0].id === report.testID) {
+                                if (!lastEle[0].hasOwnProperty("child")) {
+                                    lastEle[0].child = [];
+                                }
+                                let insertObj = {
+                                    testName: report.fileName,
+                                    testResult: report.testResult,
+                                    cateName: report.testName,
+                                    uniqueID: report._id,
+                                    comments: report.comments
+                                }
+                                if (report.hasOwnProperty("reportURL")) {
+                                    insertObj.reportURL = report.reportURL;
+                                }
+                                lastEle[0].child.push(insertObj);
+                                const bool = report.testResult;
+                                for (let j = stack.length - 1; j > -1; j--) {
+                                    const ele = stack[j][0];
+                                    if (ele.hasOwnProperty("testResult")) {
+                                        if (bool === "Fail" && ele.testResult === "Pass") {
+                                            ele.testResult = bool;
+                                        } else {
+                                            break;
+                                        }
+                                    } else {
+                                        ele.testResult = bool;
+                                    }
+                                }
+                                break;
+                            } else {
+                                stack.pop();
+                                stack[stack.length - 1][1]++;
+                            }
+                        } else {
+                            if (lastEle[0].hasOwnProperty("child") && lastEle[1] < lastEle[0].child.length) {
+                                stack.push([lastEle[0].child[lastEle[1]], 0]);
+                            } else {
+                                stack.pop();
+                                if (stack.length > 0) {
+                                    stack[stack.length - 1][1]++;
+                                }
+                            }
+                        }
+                    }
+                }
+                this.setState({
+                    reports: root,
+                    isLoading: false
+                });
+            });
+        });
+
+    }
 
     formatParams = (params) => {
         return "?" + Object
@@ -240,7 +288,8 @@ class App extends Component {
 					isCategoryView={this.state.isCategoryView}
 					reports={this.state.reports}
                     isLoading={this.state.isLoading}
-                    changeViz={this.changeViz}></Content>
+                    changeViz={this.changeViz}
+                    browserName={this.state.browserName}></Content>
 				<Footer></Footer>
 			</div>
         );

@@ -1,0 +1,31 @@
+.areaCard {
+    margin: 10px 20px 10px 20px;
+    padding: 10px 20px 10px 20px;
+    width: 200px;
+    box-shadow: 0 0 5px #005e95;
+    border: 3px;
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    box-sizing: initial;
+}
+
+.areaCard svg {
+    shape-rendering: geometricPrecision;
+}
+
+.areaCard a {
+    text-decoration: none;
+}
+
+.successArc {
+    fill: #00a300;
+}
+
+.failArc {
+    fill: #ff3030;
+}
+
+.noneArc {
+    fill: #a1a1a1;
+}

@@ -24,7 +24,7 @@ const visualize = (props) => {
         } else if (props.curViz === "Sunburst") {
             visualizeBlock = <Sunburst reports={props.reports}></Sunburst>
         } else if (props.curViz === "DetailCard") {
-            visualizeBlock = <DetailCard reports={props.reports}></DetailCard>
+            visualizeBlock = <DetailCard reports={props.reports} browserName={props.browserName}></DetailCard>
         }
     }
     

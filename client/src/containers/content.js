@@ -17,7 +17,8 @@ const content = (props) => {
             <Visualization curViz={props.curViz}
                 isCategoryView={props.isCategoryView}
                 reports={props.reports}
-                isLoading={props.isLoading}></Visualization>
+                isLoading={props.isLoading}
+                browserName={props.browserName}></Visualization>
         </div>
     )
 }

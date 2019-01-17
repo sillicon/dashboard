@@ -34,38 +34,6 @@ class Ordinarycard extends Component {
         }
     }
 
-    componentWillMount() {
-		// if (this.props.reports) {
-        //     const button = <button
-        //         className={this.props.reports.hasOwnProperty("child") ? classes.haschild : classes.nochild}>{
-        //             this.props.hasOwnProperty("child") ? (this.state.isOpen ? minusSVG : plusSVG) : dotSVG
-        //         }
-        //     </button>
-        //     const nameCard = <div className={classes.nameCard}></div>
-        //     const cardHolder = <div>
-
-        //     </div>
-        //     this.container = <div className={classes.ordinaryCard}>
-        //         {button}{nameCard}{cardHolder}
-        //     </div>
-        // } else {
-        //     this.container = <div>Loading</div>
-        // }
-    }
-    
-    // shouldComponentUpdate(nextProps, nextState) {
-    //     if (nextProps.reports !== this.props.reports || nextState !== this.state) {
-    //         return true;
-    //     }
-    //     return false;
-    // }
-
-    // componentWillUpdate(nextProps, nextState) {
-    //     if (nextProps.reports) {
-    //         this.container = this.updateContainer(nextProps, nextState);
-    //     }
-    // }
-
     toggleCardHolder = () => {
         const {isOpen} = this.state;
         this.setState({isOpen: !isOpen});
