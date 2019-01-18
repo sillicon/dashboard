@@ -6,10 +6,13 @@ import classes from "./App.module.css";
 import Header from "../components/header/header";
 import Footer from "../components/footer/footer";
 import Content from "./content";
+import * as es6 from "es6-promise";
 import axios from "axios";
 import * as moment from "moment";
 import * as Promise from "bluebird";
 import * as detect from "detect-browser";
+
+es6.polyfill();
 class App extends Component {
 
     constructor(props) {
@@ -43,6 +46,16 @@ class App extends Component {
             });
         }
         this.queryReports();
+    }
+
+    componentDidMount() {
+        document.querySelector("body").addEventListener("click", function (e) {
+            if (e.target.tagName !== "path") {
+                if (document.querySelector("#reportList")) {
+                    document.querySelector("#reportList").style.display = "none";
+                }
+            }
+        });
     }
 
     githubLogin = () => {

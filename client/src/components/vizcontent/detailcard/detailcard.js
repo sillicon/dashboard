@@ -149,10 +149,13 @@ class Gauge extends Component {
                 let pos = d3.mouse(tempScg);
                 div.html(function() {
                     let tempHTML = "";
-                    if (d.indexOf("http") > -1) {
-                        tempHTML += "<span><a href='" + d + "' target='_blank'>Click here for report</a></span><br>";
-                    } else {
-                        tempHTML += "<span><a href='.\\report\\" + d + "' target='_blank'>" + d + "</a></span><br>";
+                    for (let i = 0; i < d.length; i++) {
+                        const url = d[i];
+                        if (url.indexOf("http") > -1) {
+                            tempHTML += "<span><a href='" + url + "' target='_blank'>Click here for report</a></span><br>";
+                        } else {
+                            tempHTML += "<span><a href='.\\report\\" + url + "' target='_blank'>" + url + "</a></span><br>";
+                        }
                     }
                     return tempHTML;
                 });
@@ -225,7 +228,7 @@ const detailCard = (props) => {
             {title}{desc}{gauge}{testDesc}
         </div>
     });
-    return <div id="detailCard">{divArr}<div id="reportList" className="testListTip"></div></div>
+    return <div id="detailCard">{divArr}<div id="reportList" className={"testListTip " + classes[props.browserName]} style={{display: "none"}}></div></div>
 }
 
 export default detailCard;

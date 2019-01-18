@@ -7,12 +7,35 @@
 }
 
 .chrome:after {
-    top: calc(50% - 3px);
+    top: calc(50% - 5px);
     width: 10px;
     font-size: 10px;
     line-height: 10px;
     color: black;
-    content: "\25C0 \FE0E";
+    content: "\25C0";
     position: absolute;
     left: -9px;
+}
+
+.firefox:after {
+    top: calc(50% - 5px);
+    width: 10px;
+    font-size: 10px;
+    line-height: 10px;
+    color: black;
+    content: "\25C0";
+    position: absolute;
+    left: -9px;
+}
+
+.edge:after {
+    top: calc(50% - 5px);
+    width: 10px;
+    font-size: 10px;
+    line-height: 10px;
+    color: black;
+    content: "\25C0";
+    position: absolute;
+    left: -9px;
+    font-family: "Segoe UI Symbol";
 }
