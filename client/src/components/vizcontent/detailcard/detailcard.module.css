@@ -5,3 +5,14 @@
     height: 35px;
     font-weight: bold;
 }
+
+.chrome:after {
+    top: calc(50% - 3px);
+    width: 10px;
+    font-size: 10px;
+    line-height: 10px;
+    color: black;
+    content: "\25C0 \FE0E";
+    position: absolute;
+    left: -9px;
+}

@@ -56,19 +56,19 @@ class Gauge extends Component {
             let strWidth2 = resultLabel.node().getComputedTextLength();
             resultLabel.attr("x", svgWidth / 2 - strWidth2 / 2);
             let successArc = svg.data(function() {
-                return obj.child.filter((ele) => {
+                return [obj.child.filter((ele) => {
                     return ele.testResult === "Pass";
                 }).map((ele) => {
                     return ele.hasOwnProperty("reportURL") ? ele.reportURL : ele.fileName;
-                });
+                })];
             }).append("path").attr("class", "successArc")
             .attr("transform", "translate(" + (width / 2 + margin.left) + "," + (height / 2 + margin.top) + ")");
             let failArc = svg.data(function() {
-                return obj.child.filter((ele) => {
+                return [obj.child.filter((ele) => {
                     return ele.testResult === "Fail";
                 }).map((ele) => {
                     return ele.hasOwnProperty("reportURL") ? ele.reportURL : ele.fileName;
-                });
+                })];
             }).append("path")
                 .attr("class", "failArc")
                 .attr("transform", "translate(" + (width / 2 + margin.left) + "," + (height / 2 + margin.top) + ")");
@@ -149,21 +149,19 @@ class Gauge extends Component {
                 let pos = d3.mouse(tempScg);
                 div.html(function() {
                     let tempHTML = "";
-                    for (let i = 0; i < d.length; i++) {
-                        if (d[i].indexOf("http") > -1) {
-                            tempHTML += "<span><a href='" + d[i] + "' target='_blank'>Click here for report</a></span><br>";
-                        } else {
-                            tempHTML += "<span><a href='.\\report\\" + d[i] + "' target='_blank'>" + d[i] + "</a></span><br>";
-                        }
+                    if (d.indexOf("http") > -1) {
+                        tempHTML += "<span><a href='" + d + "' target='_blank'>Click here for report</a></span><br>";
+                    } else {
+                        tempHTML += "<span><a href='.\\report\\" + d + "' target='_blank'>" + d + "</a></span><br>";
                     }
                     return tempHTML;
                 });
                 div.style("display", "block");
                 div.style("left", function() {
-                    // let arcLeft = tempScg.getBoundingClientRect().left,
-                    //     arcWidth = tempScg.getBoundingClientRect().width,
-                    //     tipWidth = this.getBoundingClientRect().width,
-                    //     scrollWidth;
+                    let arcLeft = tempScg.getBoundingClientRect().left,
+                        arcWidth = tempScg.getBoundingClientRect().width,
+                        tipWidth = this.getBoundingClientRect().width,
+                        scrollWidth;
                     // //set ::after rule based on different browser
                     // let sheet = document.styleSheets;
                     // for (let i = 0; i < sheet.length; i++) {
@@ -190,21 +188,21 @@ class Gauge extends Component {
                     // if (isSafari || isEdge) {
                     //     scrollWidth = document.getElementsByTagName("body")[0].scrollLeft;
                     // } else if (isChrome || isFirefox || isIE) {
-                    //     scrollWidth = document.getElementsByTagName("html")[0].scrollLeft;
+                        scrollWidth = document.getElementsByTagName("html")[0].scrollLeft;
                     // }
-                    // return ((arcLeft + pos[0] + scrollWidth + 15) + "px");
+                    return ((arcLeft + pos[0] + scrollWidth + 15) + "px");
                 });
                 div.style("top", function() {
-                    // let arctTop = tempScg.getBoundingClientRect().top,
-                    //     arcHeight = tempScg.getBoundingClientRect().height,
-                    //     tipHeight = this.getBoundingClientRect().height,
-                    //     scrollHeight;
+                    let arctTop = tempScg.getBoundingClientRect().top,
+                        arcHeight = tempScg.getBoundingClientRect().height,
+                        tipHeight = this.getBoundingClientRect().height,
+                        scrollHeight;
                     // if (isSafari || isEdge) {
                     //     scrollHeight = document.getElementsByTagName("body")[0].scrollTop;
                     // } else if (isChrome || isFirefox || isIE) {
-                    //     scrollHeight = document.getElementsByTagName("html")[0].scrollTop;
+                        scrollHeight = document.getElementsByTagName("html")[0].scrollTop;
                     // }
-                    // return ((arctTop + pos[1] + scrollHeight - tipHeight / 2) + "px");
+                    return ((arctTop + pos[1] + scrollHeight - tipHeight / 2) + "px");
                 });
             });
 
@@ -221,13 +219,13 @@ const detailCard = (props) => {
         const title = <div className={classes.fieldTitle}>{obj.testName}</div>
         const desc = <div>{"Total test run for today: " + obj.child.length}</div>
         const gauge = <Gauge obj={obj}></Gauge>
-        const testDesc = <a href="https://github.com/sillicon">Test case description</a>
+        const testDesc = <a href="https://github.com/sillicon" target="_blank" rel="noopener noreferrer">Test case description</a>
 
         return <div key={obj.testName} className="areaCard">
             {title}{desc}{gauge}{testDesc}
         </div>
     });
-    return <div id="detailCard">{divArr}</div>
+    return <div id="detailCard">{divArr}<div id="reportList" className="testListTip"></div></div>
 }
 
 export default detailCard;

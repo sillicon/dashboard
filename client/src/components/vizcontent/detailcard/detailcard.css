@@ -29,3 +29,23 @@
 .noneArc {
     fill: #a1a1a1;
 }
+
+.testListTip {
+    font: 15px "AvenirNextLTPro-Regular";
+    position: absolute;
+    text-align: center;
+    background: black;
+    box-shadow: 2px 2px 12px 8px rgba(0, 0, 0, 0.16);
+    -webkit-box-shadow: 2px 2px 12px 8px rgba(0, 0, 0, 0.16);
+    -moz-box-shadow: 2px 2px 12px 8px rgba(0, 0, 0, 0.16);
+    font-weight: bold;
+    padding: 8px;
+    border-radius: 2px;
+    z-index: 2;
+}
+
+.testListTip a {
+    text-decoration: none;
+    color: white;
+    line-height: 1.4rem;
+}

@@ -130,8 +130,10 @@ class App extends Component {
                             if (resEle.testName === report.testName) {
                                 resEle.child.push(report);
                                 resEle.passCount = report.testResult === "Pass" ? resEle.passCount + 1 : resEle.passCount;
+                                break;
                             } else if (j === res.length - 1) {
                                 for (const key in areas) {
+                                    console.log(key, skipPos.indexOf(key), skipPos);
                                     if (areas.hasOwnProperty(key) && skipPos.indexOf(key) < 0) {
                                         if (areas[key] === report.testName) {
                                             res.push({
@@ -140,6 +142,7 @@ class App extends Component {
                                                 passCount: report.testResult === "Pass" ? 1: 0
                                             });
                                             skipPos.push(key);
+                                            j++;
                                             break;
                                         }
                                     }
@@ -171,6 +174,7 @@ class App extends Component {
                         });
                     }
                 }
+                console.log(res);
                 this.setState({
                     reports: res,
                     isLoading: false
