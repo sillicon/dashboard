@@ -16,7 +16,7 @@ const navigation = (props) => {
         <div id="navContainer" className={classes.naviContainer}>
             <div id="contentNavi" className={classes.contentNavi}>{envirs}</div>
             <div id="pageNavi" className={classes.pageNavi}>
-                <a id="detailQuery" href="/ReadReport" target="_blank" className={classes.naviInactive}>Detail Query>></a>
+                <a id="detailQuery" href="/queryReport" target="_blank" className={classes.naviInactive}>Detail Query>></a>
                 <a id="submitReport" href="/UploadReport" target="_blank" className={classes.naviInactive}>Upload Report>></a>
             </div>
         </div>

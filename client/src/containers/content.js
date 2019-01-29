@@ -13,7 +13,12 @@ const content = (props) => {
                 switchEnvir={props.switchEnvir}></Title>
             <Buttons curViz={props.curViz}
                 isCategoryView={props.isCategoryView}
-                changeViz={props.changeViz}></Buttons>
+                reports={props.reports}
+                changeViz={props.changeViz}
+                summary={props.summary}
+                modalOpen={props.modalOpen}
+                modalClose={props.modalClose}
+                isModalOpen={props.isModalOpen}></Buttons>
             <Visualization curViz={props.curViz}
                 isCategoryView={props.isCategoryView}
                 reports={props.reports}

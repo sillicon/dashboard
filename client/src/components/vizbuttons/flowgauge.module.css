@@ -1,0 +1,24 @@
+.gaugeBlock {
+    margin: 20px 40px 20px 40px;
+    display: inline-block;
+    width: 180px;
+}
+
+.gaugeDesc {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 1.4rem;
+    height: 35px;
+    color: white;
+}
+
+.gaugeInfo {
+    margin-bottom: 20px;
+    font-size: 1rem;
+    color: white;
+}
+
+.gauge {
+    height: 170px;
+    width: 170px;
+}

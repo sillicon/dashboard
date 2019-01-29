@@ -69,8 +69,8 @@ app.use(deployPath, githubLogin);
 app.get(deployPath, function (req, res) {
     res.sendFile(path.join(__dirname + "/../client/build", "index.html"));
 });
-app.get(deployPath + "/ReadReport", function (req, res) {
-    res.sendFile(path.join(__dirname, "public", "ReadReport.html"));
+app.get(deployPath + "/queryReport", function (req, res) {
+    res.sendFile(path.join(__dirname + "/../client/build", "queryReport.html"));
 });
 app.get(deployPath + "/UploadReport", function (req, res) {
     res.sendFile(path.join(__dirname, "public", "UploadReport.html"));

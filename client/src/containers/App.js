@@ -25,7 +25,9 @@ class App extends Component {
             curViz: "Ordinary",
             isCategoryView: true,
             isLoading: true,
-            browserName: detect.detect().name
+            browserName: detect.detect().name,
+            summary: null,
+            modalOpen: false
         }
     }
 
@@ -45,7 +47,16 @@ class App extends Component {
                 }
             });
         }
-        this.queryReports();
+        if (window.location.hash) {
+            this.setState({
+                envir: window.location.hash.substring(1)
+            }, () => {
+                this.queryReports();
+            })
+        } else {
+            this.queryReports();
+        }
+        
     }
 
     componentDidMount() {
@@ -118,6 +129,18 @@ class App extends Component {
         }
     }
 
+    modalOpen = () => {
+        this.setState({
+            modalOpen: true
+        });
+    }
+
+    modalClose = () => {
+        this.setState({
+            modalOpen: false
+        });
+    }
+
     getLatestReports = () => {
         this.setState({
             isLoading: true
@@ -127,16 +150,25 @@ class App extends Component {
                     envir: this.state.envir,
                     testDate: moment(this.state.curDate).format("MM/DD/YYYY")
                 }),
-                "./getIDRef"
+                "./getIDRef",
+                "./getTestName"
             ]
             Promise.map(urls, (url) => {
                 return axios.get(url);
             }).then((resArr) => {
                 const reports = [...resArr[0].data],
                     areas = resArr[1].data,
-                    res = [], skipPos = [];
+                    res = [], skipPos = [],
+                    testSummary = {
+                        passCount: 0,
+                        testCount: 0
+                    };
                 for (let i = 0; i < reports.length; i++) {
                     const report = reports[i];
+                    testSummary.testCount++;
+                    if (report.testResult === "Pass") {
+                        testSummary.passCount++;
+                    }
                     if (res.length > 0) {
                         for (let j = 0; j < res.length; j++) {
                             const resEle = res[j];
@@ -188,9 +220,53 @@ class App extends Component {
                     }
                 }
                 console.log(res);
+                let summaryObj = {
+                    0: {
+                        testArea: 0,
+                        coveredTestArea: 0
+                    },
+                    1: {
+                        testArea: 0,
+                        coveredTestArea: 0
+                    },
+                    2: {
+                        testArea: 0,
+                        coveredTestArea: 0
+                    },
+                    3: {...testSummary}
+                }, stack = [];
+                for (let k = 0; k < 3; k++) {
+                    stack = [[resArr[2].data[k], 0]];
+                    while (stack.length > 0) {
+                        let lastEle = stack[stack.length - 1];
+                        if (lastEle[0].hasOwnProperty("id")) {
+                            summaryObj[k].testArea++;
+                            for (let p = 0; p < reports.length; p++) {
+                                if (reports[p].testID === lastEle[0].id) {
+                                    summaryObj[k].coveredTestArea++;
+                                    break;
+                                }
+                            }
+                            stack.pop();
+                            if (stack.length > 0) {
+                                stack[stack.length - 1][1]++;
+                            }
+                        } else {
+                            if (lastEle[1] === lastEle[0].child.length) {
+                                stack.pop();
+                                if (stack.length > 0) {
+                                    stack[stack.length - 1][1]++;
+                                }
+                            } else {
+                                stack.push([lastEle[0].child[lastEle[1]], 0]);
+                            }
+                        }
+                    }
+                }
                 this.setState({
                     reports: res,
-                    isLoading: false
+                    isLoading: false,
+                    summary: {...summaryObj}
                 });
             });
         });
@@ -216,9 +292,17 @@ class App extends Component {
                         child: resArr[1].data
                     },
                     resultList = resArr[0].data,
-                    stack;
+                    stack,
+                    testSummary = {
+                        passCount: 0,
+                        testCount: 0
+                    };
                 for (let i = 0; i < resultList.length; i++) {
                     const report = resultList[i];
+                    testSummary.testCount++;
+                    if (report.testResult === "Pass") {
+                        testSummary.passCount++;
+                    }
                     stack = [
                         [root, 0]
                     ];
@@ -270,13 +354,54 @@ class App extends Component {
                         }
                     }
                 }
+                let summaryObj = {
+                    0: {
+                        testArea: 0,
+                        coveredTestArea: 0
+                    },
+                    1: {
+                        testArea: 0,
+                        coveredTestArea: 0
+                    },
+                    2: {
+                        testArea: 0,
+                        coveredTestArea: 0
+                    },
+                    3: {...testSummary}
+                }
+                for (let i = 0; i < 3; i++) {
+                    stack = [[root.child[i], 0]];
+                    while (stack.length > 0) {
+                        let lastEle = stack[stack.length - 1];
+                        if (lastEle[0].hasOwnProperty("id")) {
+                            summaryObj[i].testArea++;
+                            if (lastEle[0].hasOwnProperty("child")) {
+                                summaryObj[i].coveredTestArea++;
+                            }
+                            stack.pop();
+                            if (stack.length > 0) {
+                                stack[stack.length - 1][1]++;
+                            }
+                        } else {
+                            if (lastEle[1] === lastEle[0].child.length) {
+                                stack.pop();
+                                if (stack.length > 0) {
+                                    stack[stack.length - 1][1]++;
+                                }
+                            } else {
+                                stack.push([lastEle[0].child[lastEle[1]], 0]);
+                            }
+                        }
+                    }
+                }
+                console.log(summaryObj)
                 this.setState({
                     reports: root,
-                    isLoading: false
+                    isLoading: false,
+                    summary: {...summaryObj}
                 });
             });
         });
-
     }
 
     formatParams = (params) => {
@@ -306,7 +431,11 @@ class App extends Component {
 					reports={this.state.reports}
                     isLoading={this.state.isLoading}
                     changeViz={this.changeViz}
-                    browserName={this.state.browserName}></Content>
+                    browserName={this.state.browserName}
+                    summary={this.state.summary}
+                    modalOpen={this.modalOpen}
+                    modalClose={this.modalClose}
+                    isModalOpen={this.state.modalOpen}></Content>
 				<Footer></Footer>
 			</div>
         );
