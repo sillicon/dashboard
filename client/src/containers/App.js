@@ -1,6 +1,7 @@
 import React, {
     Component
 } from "react";
+import { BrowserRouter as Router} from "react-router-dom";
 import "../semantic/semantic.min.css";
 import classes from "./App.module.css";
 import Header from "../components/header/header";
@@ -56,11 +57,11 @@ class App extends Component {
         } else {
             this.queryReports();
         }
-        
+
     }
 
     componentDidMount() {
-        document.querySelector("body").addEventListener("click", function (e) {
+        document.querySelector("body").addEventListener("click", function(e) {
             if (e.target.tagName !== "path") {
                 if (document.querySelector("#reportList")) {
                     document.querySelector("#reportList").style.display = "none";
@@ -121,7 +122,7 @@ class App extends Component {
                     isCategoryView: false
                 });
                 this.getLatestReports();
-            }           
+            }
         } else {
             this.setState({
                 curViz: newViz
@@ -158,7 +159,8 @@ class App extends Component {
             }).then((resArr) => {
                 const reports = [...resArr[0].data],
                     areas = resArr[1].data,
-                    res = [], skipPos = [],
+                    res = [],
+                    skipPos = [],
                     testSummary = {
                         passCount: 0,
                         testCount: 0
@@ -184,7 +186,7 @@ class App extends Component {
                                             res.push({
                                                 testName: areas[key],
                                                 child: [report],
-                                                passCount: report.testResult === "Pass" ? 1: 0
+                                                passCount: report.testResult === "Pass" ? 1 : 0
                                             });
                                             skipPos.push(key);
                                             j++;
@@ -201,7 +203,7 @@ class App extends Component {
                                     res.push({
                                         testName: areas[key],
                                         child: [report],
-                                        passCount: report.testResult === "Pass" ? 1: 0
+                                        passCount: report.testResult === "Pass" ? 1 : 0
                                     });
                                     skipPos.push(key);
                                     break;
@@ -221,22 +223,27 @@ class App extends Component {
                 }
                 console.log(res);
                 let summaryObj = {
-                    0: {
-                        testArea: 0,
-                        coveredTestArea: 0
+                        0: {
+                            testArea: 0,
+                            coveredTestArea: 0
+                        },
+                        1: {
+                            testArea: 0,
+                            coveredTestArea: 0
+                        },
+                        2: {
+                            testArea: 0,
+                            coveredTestArea: 0
+                        },
+                        3: {
+                            ...testSummary
+                        }
                     },
-                    1: {
-                        testArea: 0,
-                        coveredTestArea: 0
-                    },
-                    2: {
-                        testArea: 0,
-                        coveredTestArea: 0
-                    },
-                    3: {...testSummary}
-                }, stack = [];
+                    stack = [];
                 for (let k = 0; k < 3; k++) {
-                    stack = [[resArr[2].data[k], 0]];
+                    stack = [
+                        [resArr[2].data[k], 0]
+                    ];
                     while (stack.length > 0) {
                         let lastEle = stack[stack.length - 1];
                         if (lastEle[0].hasOwnProperty("id")) {
@@ -266,7 +273,9 @@ class App extends Component {
                 this.setState({
                     reports: res,
                     isLoading: false,
-                    summary: {...summaryObj}
+                    summary: {
+                        ...summaryObj
+                    }
                 });
             });
         });
@@ -367,10 +376,14 @@ class App extends Component {
                         testArea: 0,
                         coveredTestArea: 0
                     },
-                    3: {...testSummary}
+                    3: {
+                        ...testSummary
+                    }
                 }
                 for (let i = 0; i < 3; i++) {
-                    stack = [[root.child[i], 0]];
+                    stack = [
+                        [root.child[i], 0]
+                    ];
                     while (stack.length > 0) {
                         let lastEle = stack[stack.length - 1];
                         if (lastEle[0].hasOwnProperty("id")) {
@@ -398,7 +411,9 @@ class App extends Component {
                 this.setState({
                     reports: root,
                     isLoading: false,
-                    summary: {...summaryObj}
+                    summary: {
+                        ...summaryObj
+                    }
                 });
             });
         });
@@ -415,29 +430,30 @@ class App extends Component {
 
     render() {
         return (
-            <div className = {classes.App} >
-				<Header
-					userInfo={this.state.user}
-					gitLogin={this.githubLogin}
-					checkProfile={this.checkProfile}>
-				</Header>
-				<Content
-					envir={this.state.envir}
-					curDate={this.state.curDate}
-					queryChange={this.queryChange}
-					switchEnvir={this.switchEnvir}
-					curViz={this.state.curViz}
-					isCategoryView={this.state.isCategoryView}
-					reports={this.state.reports}
-                    isLoading={this.state.isLoading}
-                    changeViz={this.changeViz}
-                    browserName={this.state.browserName}
-                    summary={this.state.summary}
-                    modalOpen={this.modalOpen}
-                    modalClose={this.modalClose}
-                    isModalOpen={this.state.modalOpen}></Content>
-				<Footer></Footer>
-			</div>
+            <Router>
+                <div className={classes.App} >
+                    <Header
+                        userInfo={this.state.user}
+                        gitLogin={this.githubLogin}
+                        checkProfile={this.checkProfile}></Header>
+                    <Content
+                        envir={this.state.envir}
+                        curDate={this.state.curDate}
+                        queryChange={this.queryChange}
+                        switchEnvir={this.switchEnvir}
+                        curViz={this.state.curViz}
+                        isCategoryView={this.state.isCategoryView}
+                        reports={this.state.reports}
+                        isLoading={this.state.isLoading}
+                        changeViz={this.changeViz}
+                        browserName={this.state.browserName}
+                        summary={this.state.summary}
+                        modalOpen={this.modalOpen}
+                        modalClose={this.modalClose}
+                        isModalOpen={this.state.modalOpen}></Content>
+                    <Footer></Footer>
+                </div>
+            </Router> 
         );
     }
 }
