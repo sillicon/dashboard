@@ -205,16 +205,29 @@
     margin: auto;
     position: relative;
     background-color: transparent;
-    color: white;
-    font-size: 30px;
-    border: 0px;
     border-image-width: 0px;
     cursor: pointer;
     font-family: AvenirNextLTPro-Regular;
 }
 
-.DayPickerInput>input::placeholder {
+.DayPickerInput.title>input {
+    font-size: 30px;
+    border: 0px;
+}
+
+.DayPickerInput.title>input::placeholder {
     color: white;
+}
+
+.DayPickerInput.txtbox>input {
+    font-size: 20px;
+    border: 1px solid rgba(34,36,38,.15);
+    text-align: center;
+    padding: 7px 8px 7px 8px;
+}
+
+.DayPickerInput.txtbox>input::placeholder {
+    color: black;
 }
 
 .DayPickerInput-OverlayWrapper {
@@ -225,7 +238,6 @@
     position: absolute;
     left: 0;
     z-index: 1;
-
     background: white;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
 }

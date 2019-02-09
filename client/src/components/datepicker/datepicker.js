@@ -7,31 +7,36 @@ import DayPicker from "react-day-picker";
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import classes from "./datepicker.module.css";
 
-const dayPickerInputClassNames = { ...DayPickerInput.defaultProps.classNames };
-const dayPickerClassNames = { ...DayPicker.defaultProps.classNames };
-for (const key in dayPickerInputClassNames) {
-    if (dayPickerInputClassNames.hasOwnProperty(key)) {
-        dayPickerInputClassNames[key] = classes[dayPickerInputClassNames[key]];
-    }
-}
-for (const key in dayPickerClassNames) {
-    if (dayPickerClassNames.hasOwnProperty(key)) {
-        dayPickerClassNames[key] = classes[dayPickerClassNames[key]];
-    }
-}
-
 const datePicker = (props) => {
+    const dayPickerInputClassNames = { ...DayPickerInput.defaultProps.classNames };
+    const dayPickerClassNames = { ...DayPicker.defaultProps.classNames };
+    for (const key in dayPickerInputClassNames) {
+        if (dayPickerInputClassNames.hasOwnProperty(key)) {
+            dayPickerInputClassNames[key] = classes[dayPickerInputClassNames[key]];
+        }
+    }
+    if (props.position === "title") {
+        dayPickerInputClassNames.container += " " + classes.title;
+    } else {
+        dayPickerInputClassNames.container += " " + classes.txtbox;
+    }
+    for (const key in dayPickerClassNames) {
+        if (dayPickerClassNames.hasOwnProperty(key)) {
+            dayPickerClassNames[key] = classes[dayPickerClassNames[key]];
+        }
+    }
+
     return <DayPickerInput
         classNames={dayPickerInputClassNames}
         formatDate={formatDate}
         parseDate={parseDate}
-        placeholder={formatDate(props.curDate)} 
+        placeholder={formatDate(props.curDate)}
         dayPickerProps={{
             month: props.curDate,
             todayButton: "Today",
             selectedDays: props.curDate,
             disabledDays: {
-                after: new Date()
+                after: props.disabledDate
             },
             classNames: {
                 ...dayPickerClassNames,
@@ -43,7 +48,7 @@ const datePicker = (props) => {
                 today: classes["DayPicker-Day--today"]
             }
         }}
-        onDayChange={props.queryChange}>
+        onDayChange={props.dayChanged}>
     </DayPickerInput>
 }
 

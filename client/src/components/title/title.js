@@ -21,7 +21,7 @@ const title = (props) => {
         return <div style={inlineStyle1}>
             <div id="envirName" className={classes.envirName}>{props.envir}</div>
             <div style={inlineStyle2}> on day: </div>
-            <DatePicker curDate={props.curDate} queryChange={props.queryChange}></DatePicker>
+            <DatePicker curDate={props.curDate} dayChanged={props.queryChange} position={"title"} disabledDate={new Date()}></DatePicker>
         </div>
     }
     const queryTitle = () => {

@@ -32,7 +32,9 @@ class App extends Component {
         }
     }
 
-    componentWillMount() {
+    componentWillMount() {}
+
+    componentDidMount() {
         let currentUser = JSON.parse(sessionStorage.getItem("user"));
         if (currentUser) {
             this.setState({
@@ -57,10 +59,6 @@ class App extends Component {
         } else {
             this.queryReports();
         }
-
-    }
-
-    componentDidMount() {
         document.querySelector("body").addEventListener("click", function(e) {
             if (e.target.tagName !== "path") {
                 if (document.querySelector("#reportList")) {

@@ -28,7 +28,6 @@ const visualize = (props) => {
         }
     }
     
-
     return (
         <div id="vizPane" className={classes.vizPane}>{visualizeBlock}</div>
     )
