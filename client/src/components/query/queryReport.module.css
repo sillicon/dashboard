@@ -6,3 +6,42 @@
     text-align: center;
     padding: 0 0 10px 0;
 }
+
+.envirContainer {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.checkbox {
+    margin: auto 10px auto 0;
+}
+
+.envirLabel {
+    margin: auto 20px auto 0;
+}
+
+.backButton {
+    background-color: rgb(255, 255, 255);
+    color: black;
+    border: 1px solid #009581;
+    margin: 20px 10px;
+    padding: 3px 15px;
+    font-size: 20px;
+}
+
+.backButton:hover {
+    background-color: #009581;
+    color: rgb(255, 255, 255);
+}
+
+.applyBut {
+    background-color: rgb(44, 90, 0);
+    color: rgb(255, 255, 255);
+    border: 1px solid #009581;
+    margin: 20px 10px;
+    padding: 3px 15px;
+    font-size: 20px;
+}
+.applyBut:hover {
+    background-color: #009581;
+}

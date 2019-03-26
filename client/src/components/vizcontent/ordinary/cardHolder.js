@@ -14,7 +14,9 @@ const cardHolder = (props) => {
                     key={element.testName}
                     duration={Math.min(1000 / props.transArr.length, 300)}
                     animation={"slide down"}
-                    visible={props.transArr[i]}><OrdinaryCard reports={element}></OrdinaryCard></Transition>
+                    visible={props.transArr[i]}>
+                        <OrdinaryCard reports={element}></OrdinaryCard>
+                </Transition>
             );
         }
     }

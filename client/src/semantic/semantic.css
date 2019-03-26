@@ -21633,7 +21633,7 @@ ol.ui.horizontal.list li:before,
 }
 
 .ui.grid > [class*="two column"].row > .column {
-  width: 50% !important;
+  width: 50%;
 }
 
 .ui.grid > [class*="three column"].row > .column {

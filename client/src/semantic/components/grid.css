@@ -299,7 +299,7 @@
   width: 100% !important;
 }
 .ui.grid > [class*="two column"].row > .column {
-  width: 50% !important;
+  width: 50%;
 }
 .ui.grid > [class*="three column"].row > .column {
   width: 33.33333333% !important;
