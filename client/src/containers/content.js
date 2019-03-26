@@ -31,6 +31,7 @@ const content = (props) => {
     const query = () => {
         return <QueryReport></QueryReport>
     }
+    console.log("contentLoad")
 
     return (
         <div className={classes.content}>

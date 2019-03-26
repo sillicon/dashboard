@@ -405,7 +405,6 @@ class App extends Component {
                         }
                     }
                 }
-                console.log(summaryObj)
                 this.setState({
                     reports: root,
                     isLoading: false,
@@ -427,6 +426,8 @@ class App extends Component {
     }
 
     render() {
+        console.log("appLoad")
+        console.dir(this.state);
         return (
             <Router>
                 <div className={classes.App} >

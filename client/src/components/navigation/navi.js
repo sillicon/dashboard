@@ -19,7 +19,7 @@ const navigation = (props) => {
 
     const otherNavi = () => {
         return <div id="contentNavi" className={classes.contentNavi}>
-            <Link to="/" className={classes.naviInactive}>Back</Link>
+            <Link to="/" className={classes.naviInactive}>Back to Main</Link>
         </div>
     }
 
