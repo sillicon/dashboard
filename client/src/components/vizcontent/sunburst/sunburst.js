@@ -15,7 +15,6 @@ class Sunburst extends Component {
         let svgWidth = Math.min(parseInt(tempStr.substr(0, tempStr.length - 2)) - 50, window.innerHeight - 250);
         let svgHeight = svgWidth + 100;
         let radius = svgWidth / 2 - 40;
-        let formatNumber = d3.format(",d");
         let x = d3.scaleLinear()
             .range([0, 2 * Math.PI]);
         let y = d3.scaleSqrt()
@@ -135,15 +134,8 @@ class Sunburst extends Component {
                 let words = text.text().split(/>/g).reverse(),
                     word,
                     line = [],
-                    lineHeight = 22,
-                    y = text.attr("y"),
                     dy = parseFloat(text.attr("font-size")),
                     tspan = text.text(null).append("tspan").attr("x", 0).attr("dy", dy + "rem").attr("text-anchor", "middle");
-                // if (isChrome) {
-                //     var tspan = text.text(null).append("tspan").attr("x", 0).attr("dy", dy + "rem").attr("text-anchor", "middle");
-                // } else {
-                //     var tspan = text.text(null).append("tspan").attr("x", 0).attr("dy", 0).attr("text-anchor", "middle");
-                // }
                 while (words.length > 0) {
                     word = words.pop()
                     line.push(word);
@@ -152,12 +144,6 @@ class Sunburst extends Component {
                         line.pop();
                         tspan.text(line.join(" > ") + " >");
                         line = [word];
-                        let dx = tspan.node().getComputedTextLength();
-                        // if (isChrome) {
-                        //     tspan = text.append("tspan").attr("text-anchor", "middle").attr("x", 0).attr("dy", dy + "rem").text(word);
-                        // } else {
-                        //     tspan = text.append("tspan").attr("text-anchor", "middle").attr("x", 0).attr("dy", lineHeight).text(word);
-                        // }
                         tspan = text.append("tspan").attr("text-anchor", "middle").attr("x", 0).attr("dy", dy + "rem").text(word);
                     }
                 }

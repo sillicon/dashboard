@@ -30,7 +30,10 @@ class Ordinarycard extends Component {
         }
         const {isOpen} = this.state;
         if (props.reports.hasOwnProperty("child")) {
-            this.state.transArr = new Array(props.reports.child.length).fill(isOpen);
+            this.state.transArr = new Array(props.reports.child.length);
+            for (let i = 0; i < this.state.transArr.length; i++) {
+                this.state.transArr[i] = isOpen;
+            }
         }
     }
 

@@ -26,7 +26,8 @@
     border: 1px solid #009581;
     margin: 20px 10px;
     padding: 3px 15px;
-    font-size: 20px;
+    font-size: 16px;
+    cursor: pointer;
 }
 
 .backButton:hover {
@@ -40,8 +41,19 @@
     border: 1px solid #009581;
     margin: 20px 10px;
     padding: 3px 15px;
-    font-size: 20px;
+    font-size: 16px;
+    cursor: pointer;
 }
+
 .applyBut:hover {
     background-color: #009581;
+}
+
+.applyBut:disabled {
+    background-color: #cccccc;
+    cursor: default;
+}
+
+.switchButton {
+    width: 250px !important;
 }

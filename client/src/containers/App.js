@@ -8,12 +8,14 @@ import Header from "../components/header/header";
 import Footer from "../components/footer/footer";
 import Content from "./content";
 import * as es6 from "es6-promise";
+import * as es6Assign from "es6-object-assign";
 import axios from "axios";
 import * as moment from "moment";
 import * as Promise from "bluebird";
 import * as detect from "detect-browser";
 
 es6.polyfill();
+es6Assign.polyfill();
 class App extends Component {
 
     constructor(props) {
@@ -32,7 +34,9 @@ class App extends Component {
         }
     }
 
-    componentWillMount() {}
+    componentWillMount() {
+        console.log(detect.detect().name)
+    }
 
     componentDidMount() {
         let currentUser = JSON.parse(sessionStorage.getItem("user"));
@@ -45,7 +49,7 @@ class App extends Component {
                 const info = res.data;
                 if (info) {
                     this.setState({
-                        user: res.data
+                        user: info
                     });
                 }
             });

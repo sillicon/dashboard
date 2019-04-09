@@ -29,7 +29,7 @@ const content = (props) => {
         )
     }
     const query = () => {
-        return <QueryReport></QueryReport>
+        return <QueryReport browserName={props.browserName}></QueryReport>
     }
     console.log("contentLoad")
 

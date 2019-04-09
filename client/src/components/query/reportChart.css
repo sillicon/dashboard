@@ -1,0 +1,125 @@
+#charts {
+    transition: all .4s;
+    -wekit-transition: all .4s;
+    -moz-transition: all .4s;
+    max-width: 90%;
+    margin: auto;
+    box-shadow: 0 8px 4px -4px rgba(0, 0, 0, 0.16);
+    -webkit-box-shadow: 0 8px 4px -4px rgba(0, 0, 0, 0.16);
+    -moz-box-shadow: 0 8px 4px -4px rgba(0, 0, 0, 0.16);
+    text-align: center;
+    position: relative;
+    z-index: 0;
+}
+
+svg {
+    display: block;
+    margin: auto;
+    position: relative;
+}
+
+.passBar {
+    fill: #a6f3a6;
+}
+
+.passBar:hover {
+    fill: #00a300;
+}
+
+.failBar {
+    fill: #f8cbcb;
+}
+
+.failBar:hover {
+    fill: #ff3030;
+}
+
+.gridLine path {
+    display: none;
+}
+
+.gridLine line {
+    stroke: rgb(250, 250, 250);
+    stroke-width: 2px;
+}
+
+.xAxis {
+    font: 15px "AvenirNextLTPro-Regular";
+    shape-rendering: crispEdges;
+}
+
+.xAxis .tick line {
+    stroke: rgb(213, 213, 213);
+}
+
+.yAxis .tick line {
+    stroke: rgb(213, 213, 213);
+}
+
+.yAxis {
+    font: 15px "AvenirNextLTPro-Regular";
+    shape-rendering: crispEdges;
+}
+
+.domain {
+    stroke: rgb(213, 213, 213);
+}
+
+div.tooltip {
+    font: 15px "AvenirNextLTPro-Regular";
+    position: absolute;
+    text-align: center;
+    background: #005e95;
+    pointer-events: none;
+    font-weight: bold;
+    padding: 8px;
+    color: #fff;
+    line-height: 1;
+    border-radius: 2px;
+    z-index: 1;
+}
+
+div.tooltip:after {
+    margin: -1px 0 0 0;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    font-size: 10px;
+    line-height: 1;
+    color: #005e95;
+    content: "\25BC";
+    position: absolute;
+    text-align: center;
+}
+
+div.chartTip {
+    font: 15px "AvenirNextLTPro-Regular";
+    position: absolute;
+    text-align: center;
+    box-shadow: 2px 2px 12px 8px rgba(0, 0, 0, 0.16);
+    -webkit-box-shadow: 2px 2px 12px 8px rgba(0, 0, 0, 0.16);
+    -moz-box-shadow: 2px 2px 12px 8px rgba(0, 0, 0, 0.16);
+    font-weight: bold;
+    padding: 8px;
+    color: white;
+    line-height: 1.1;
+    border-radius: 2px;
+    z-index: 2;
+    background-color: black;
+}
+
+div.chartTip:after {
+    top: 50%;
+    width: 10px;
+    font-size: 10px;
+    color: rgb(0, 0, 0);
+    content: "\25C0 \FE0E";
+    position: absolute;
+    margin: var(--margins, -5px 0px 0px -16px);
+}
+
+div.chartTip a {
+    text-decoration: none;
+    color: #ffffff;
+    line-height: 1.4rem;
+}

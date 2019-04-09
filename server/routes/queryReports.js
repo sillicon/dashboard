@@ -57,7 +57,7 @@ router.get("/queryReports", function(req, res) { // new query with MongoDB
                 };
             }
         }
-        var result = [
+        let result = [
             [],
             [],
             []
@@ -69,7 +69,7 @@ router.get("/queryReports", function(req, res) { // new query with MongoDB
                 console.log(err);
                 res.status(500).send("Database query failed!");
             } else {
-                var cateCol = db.collection("reportCategory");
+                let cateCol = db.collection("reportCategory");
                 getIDRef(cateCol, function(err, idRef) {
                     if (err) {
                         console.log(err);
@@ -85,9 +85,9 @@ router.get("/queryReports", function(req, res) { // new query with MongoDB
                                 result[2].push(element);
                             }
                         }, this);
-                        for (var i = 0; i < result.length; i++) {
+                        for (let i = 0; i < result.length; i++) {
                             result[i].sort(function(a, b) {
-                                if (req.query.sort == "Date") {
+                                if (req.query.sort === "Date") {
                                     if (a.testDate < b.testDate) {
                                         return -1;
                                     } else if (a.testDate > b.testDate) {

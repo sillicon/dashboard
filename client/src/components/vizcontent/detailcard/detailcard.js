@@ -23,8 +23,7 @@ class Gauge extends Component {
             height = svgHeight - margin.top - margin.bottom,
             obj = this.props.obj,
             totalTest = obj.child.length,
-            passCount = obj.passCount,
-            browserName = this.props.browserName;
+            passCount = obj.passCount;
         let svg = d3.select("#" + obj.testName.replace(/ /g, "")).append("svg").attr("style", "width: " + svgWidth + "px; height: " + svgHeight + "px;");
         if (totalTest !== 0) {
             let percent = passCount / totalTest;
@@ -161,50 +160,14 @@ class Gauge extends Component {
                 });
                 div.style("display", "block");
                 div.style("left", function() {
-                    let arcLeft = tempScg.getBoundingClientRect().left,
-                        arcWidth = tempScg.getBoundingClientRect().width,
-                        tipWidth = this.getBoundingClientRect().width,
-                        scrollWidth;
-                    // //set ::after rule based on different browser
-                    // let sheet = document.styleSheets;
-                    // for (let i = 0; i < sheet.length; i++) {
-                    //     if (sheet[i].href.indexOf("Home") > -1) {
-                    //         if (browserName === "firefox") {
-                    //             mainSheet = sheet[i].cssRules;
-                    //         } else {
-                    //             mainSheet = sheet[i].rules;
-                    //         }
-                    //         i = sheet.length;
-                    //         for (let j = 0; j < mainSheet.length; j++) {
-                    //             if (mainSheet[j].selectorText === "div.testListTip::after") {
-                    //                 tipAfterRule = mainSheet[j];
-                    //                 j = mainSheet.length;
-                    //             }
-                    //         }
-                    //     }
-                    // }
-                    // if (isIE) {
-                    //     tipAfterRule.style.margin = "-5px 0px 0px -16px";
-                    // } else {
-                    //     tipAfterRule.style.margin = "-5px 0px 0px -" + (tipWidth / 2 + 10) + "px";
-                    // }
-                    // if (isSafari || isEdge) {
-                    //     scrollWidth = document.getElementsByTagName("body")[0].scrollLeft;
-                    // } else if (isChrome || isFirefox || isIE) {
-                        scrollWidth = document.getElementsByTagName("html")[0].scrollLeft;
-                    // }
+                    let arcLeft = tempScg.getBoundingClientRect().left, scrollWidth;
+                    scrollWidth = document.getElementsByTagName("html")[0].scrollLeft;
                     return ((arcLeft + pos[0] + scrollWidth + 15) + "px");
                 });
                 div.style("top", function() {
                     let arctTop = tempScg.getBoundingClientRect().top,
-                        arcHeight = tempScg.getBoundingClientRect().height,
-                        tipHeight = this.getBoundingClientRect().height,
-                        scrollHeight;
-                    // if (isSafari || isEdge) {
-                    //     scrollHeight = document.getElementsByTagName("body")[0].scrollTop;
-                    // } else if (isChrome || isFirefox || isIE) {
+                        tipHeight = this.getBoundingClientRect().height, scrollHeight;
                         scrollHeight = document.getElementsByTagName("html")[0].scrollTop;
-                    // }
                     return ((arctTop + pos[1] + scrollHeight - tipHeight / 2) + "px");
                 });
             });

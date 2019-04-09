@@ -27,7 +27,6 @@ const visualize = (props) => {
             visualizeBlock = <DetailCard reports={props.reports} browserName={props.browserName}></DetailCard>
         }
     }
-    console.log("vizLoad")
     return (
         <div id="vizPane" className={classes.vizPane}>{visualizeBlock}</div>
     )

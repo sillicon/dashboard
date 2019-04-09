@@ -217,6 +217,12 @@
 
 .DayPickerInput.title>input::placeholder {
     color: white;
+    opacity: 1;
+}
+
+.DayPickerInput.title>input:-ms-input-placeholder {
+    color: white !important;
+    opacity: 1 !important;
 }
 
 .DayPickerInput.txtbox>input {
