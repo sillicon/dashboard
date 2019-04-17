@@ -11,7 +11,11 @@ class TreeMap extends Component {
     }
 
     drawTreeMap = () => {
-        let reports = {...this.props.reports};
+        let reports = {
+            testName: this.props.reports.testName,
+            testResult: this.props.reports.testResult
+        };
+        reports.child = [...this.props.reports.child]
         reports.child.splice(3); // do not show github issues in Treemap view
         let tempStr = getComputedStyle(document.querySelector("#treemap")).width;
         let svgWidth = parseInt(tempStr.substr(0, tempStr.length - 2)) - 50;

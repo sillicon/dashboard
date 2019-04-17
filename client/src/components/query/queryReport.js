@@ -298,7 +298,7 @@ class QueryPane extends Component {
             </Grid.Row>
             <Grid.Row>
                 <button className={classes.backButton}>Back</button>
-                <button className={classes.applyBut} disabled={!this.state.queryReady} onClick={() => {this.startQuery()}}>Apply</button>
+                <button className={classes.applyBut} disabled={!this.state.queryReady} onClick={() => {this.startQuery()}}>Query</button>
             </Grid.Row>
         </Grid>)
 

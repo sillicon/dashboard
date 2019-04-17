@@ -216,7 +216,7 @@ class QueryChart extends Component {
 
         function drawBar(svgGroup, xScale) {
             svgGroup.selectAll(".passBar").attr("width", function(d) {
-                return xScale(calculateDays(toLocaleDate(d.date), 1 - d.ratio)) - xScale(toLocaleDate(d.date));
+                return xScale(calculateDays(toLocaleDate(d.date), d.ratio)) - xScale(toLocaleDate(d.date));
             }).attr("transform", function(d) {
                 return "translate(" + (margin.left + xScale(toLocaleDate(d.date))) + ", 0)";
             });
